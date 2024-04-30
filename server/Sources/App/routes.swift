@@ -1,11 +1,11 @@
 import Vapor
 
 struct SensorUpdate: Content {
-  var wifi: String
-  var rco2: String
-  var pm01: String
-  var pm02: String
-  var pm10: String
+  var wifi: String?
+  var rco2: String?
+  var pm01: String?
+  var pm02: String?
+  var pm10: String?
   var pm003_count: String?
   var tvoc_index: String?
   var nox_index: String?
@@ -23,7 +23,7 @@ func routes(_ app: Application) throws {
       throw Abort(.badRequest, reason: "Invalid sensor id")
     }
     guard let sensorUpdate = try? req.content.decode(SensorUpdate.self) else {
-      throw Abort(.badRequest, reason: "Invalid sensor update")
+      throw Abort(.badRequest, reason: "Invalid sensor update format")
     }
 
     req.logger.info("Received sensor update for sensor \(id): \(sensorUpdate)")
