@@ -9,8 +9,13 @@ public func configure(_ app: Application) async throws {
   app.migrations.add(CreateSensor())
   app.migrations.add(CreateSensorUpdate())
   try await app.autoMigrate()
+    
+  let requestLoggingMiddleware = RequestLoggingMiddleware()
+  app.middleware.use(requestLoggingMiddleware)
+    
   // uncomment to serve files from /Public folder
   // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    
   // register routes
   try routes(app)
 }
