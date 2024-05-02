@@ -8,34 +8,34 @@ final class SensorUpdate: Model, Content {
   var id: UUID?
 
   @Field(key: "wifi")
-  var wifi: String?
+  var wifi: Int?
 
   @Field(key: "rco2")
-  var rco2: Float?
+  var rco2: Int?
 
   @Field(key: "pm01")
-  var pm01: Float?
+  var pm01: Int?
 
   @Field(key: "pm02")
-  var pm02: Float?
+  var pm02: Int?
 
   @Field(key: "pm10")
-  var pm10: Float?
+  var pm10: Int?
 
   @Field(key: "pm003_count")
-  var pm003Count: Float?
+  var pm003Count: Int?
 
   @Field(key: "tvoc_index")
-  var tvocIndex: Float?
+  var tvocIndex: Int?
 
   @Field(key: "nox_index")
-  var noxIndex: Float?
+  var noxIndex: Int?
 
   @Field(key: "atmp")
   var atmp: Float?
 
   @Field(key: "rhum")
-  var rhum: Float?
+  var rhum: Int?
 
   @Parent(key: "sensor_id")
   var sensor: Sensor
@@ -46,8 +46,8 @@ final class SensorUpdate: Model, Content {
   init() {}
 
   init(
-    id: UUID? = nil, wifi: String?, rco2: Float?, pm01: Float?, pm02: Float?, pm10: Float?,
-    pm003Count: Float?, tvocIndex: Float?, noxIndex: Float?, atmp: Float?, rhum: Float?,
+    id: UUID? = nil, wifi: Int?, rco2: Int?, pm01: Int?, pm02: Int?, pm10: Int?,
+    pm003Count: Int?, tvocIndex: Int?, noxIndex: Int?, atmp: Float?, rhum: Int?,
     sensorID: Sensor.IDValue
   ) {
     self.id = id

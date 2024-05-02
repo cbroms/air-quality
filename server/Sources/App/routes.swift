@@ -2,37 +2,16 @@ import Fluent
 import Vapor
 
 struct PostSensorUpdate: Content {
-  var wifi: String?
-  var rco2: Float?
-  var pm01: Float?
-  var pm02: Float?
-  var pm10: Float?
-  var pm003_count: Float?
-  var tvoc_index: Float?
-  var nox_index: Float?
+  var wifi: Int?
+  var rco2: Int?
+  var pm01: Int?
+  var pm02: Int?
+  var pm10: Int?
+  var pm003_count: Int?
+  var tvoc_index: Int?
+  var nox_index: Int?
   var atmp: Float?
-  var rhum: Float?
-
-  // Custom initializer to parse strings to floats
-  init(from decoder: Decoder) throws {
-    let container = try decoder.container(keyedBy: CodingKeys.self)
-    wifi = try container.decodeIfPresent(String.self, forKey: .wifi)
-    rco2 = Float(try container.decodeIfPresent(String.self, forKey: .rco2) ?? "")
-    pm01 = Float(try container.decodeIfPresent(String.self, forKey: .pm01) ?? "")
-    pm02 = Float(try container.decodeIfPresent(String.self, forKey: .pm02) ?? "")
-    pm10 = Float(try container.decodeIfPresent(String.self, forKey: .pm10) ?? "")
-    pm003_count = Float(try container.decodeIfPresent(String.self, forKey: .pm003_count) ?? "")
-    tvoc_index = Float(try container.decodeIfPresent(String.self, forKey: .tvoc_index) ?? "")
-    nox_index = Float(try container.decodeIfPresent(String.self, forKey: .nox_index) ?? "")
-    atmp = Float(try container.decodeIfPresent(String.self, forKey: .atmp) ?? "")
-    rhum = Float(try container.decodeIfPresent(String.self, forKey: .rhum) ?? "")
-  }
-}
-
-extension PostSensorUpdate {
-  private enum CodingKeys: String, CodingKey {
-    case wifi, rco2, pm01, pm02, pm10, pm003_count, tvoc_index, nox_index, atmp, rhum
-  }
+  var rhum: Int?
 }
 
 func routes(_ app: Application) throws {
