@@ -52,17 +52,16 @@ func routes(_ app: Application) throws {
     var sensor = try? await Sensor.query(on: req.db)
       .filter(\.$name == sensorName)
       .first()
-      
-      if sensor == nil {
-          let newSensor = Sensor(name: sensorName)
-          try await newSensor.save(on: req.db)
-          sensor = newSensor
-      }
-      
-      guard let sensorId = try sensor?.requireID() else {
-          throw Abort(.internalServerError)
-      }
-      
+
+    if sensor == nil {
+      let newSensor = Sensor(name: sensorName)
+      try await newSensor.save(on: req.db)
+      sensor = newSensor
+    }
+
+    guard let sensorId = try sensor?.requireID() else {
+      throw Abort(.internalServerError)
+    }
 
     let sensorUpdate = SensorUpdate(
       wifi: postSensorUpdate.wifi,
@@ -79,34 +78,31 @@ func routes(_ app: Application) throws {
     )
 
     try await sensorUpdate.save(on: req.db)
-      
+
     req.logger.info("Received sensor update for sensor \(sensorName): \(postSensorUpdate)")
     return .ok
   }
-    
-//    app.get("sensors", ":sensorName") { req async throws -> HTTPStatus in
-//        
-//        guard let sensorName = req.parameters.get("sensorName", as: String.self) else {
-//            throw Abort(.badRequest, reason: "Invalid sensor name")
-//        }
-//        
-//        guard let sensor = try await Sensor.query(on: req.db)
-//            .filter(\.$name == sensorName)
-//            .first() else {
-//            throw Abort(.notFound, reason: "Could not find sensor \(sensorName)")
-//        }
-//        
-//        let sensorId = try sensor.requireID()
-//        
-//        guard let sensorUpdates = try await SensorUpdate.query(on: req.db)
-//            .with(\.$sensor)
-//            .all()
-//        else {
-//            throw Abort(.notFound, reason: "Could not find any updates for sensor \(sensorName)")
-//        }
-//        
-//        
-//        
-//        
-//    }
+
+  app.get("sensors", ":sensorName") { req async throws -> [SensorUpdate] in
+
+    guard let sensorName = req.parameters.get("sensorName", as: String.self) else {
+      throw Abort(.badRequest, reason: "Invalid sensor name")
+    }
+
+    guard
+      let sensor = try await Sensor.query(on: req.db)
+        .filter(\.$name == sensorName)
+        .first()
+    else {
+      throw Abort(.notFound, reason: "Could not find sensor \(sensorName)")
+    }
+
+    let sensorId = try sensor.requireID()
+
+    let sensorUpdates = try await SensorUpdate.query(on: req.db)
+      .filter(\.$sensor.$id == sensorId)
+      .all()
+
+    return sensorUpdates
+  }
 }

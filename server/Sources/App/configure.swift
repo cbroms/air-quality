@@ -8,6 +8,7 @@ public func configure(_ app: Application) async throws {
   app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
   app.migrations.add(CreateSensor())
   app.migrations.add(CreateSensorUpdate())
+  try await app.autoMigrate()
   // uncomment to serve files from /Public folder
   // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
   // register routes
