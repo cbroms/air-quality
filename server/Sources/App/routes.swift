@@ -43,16 +43,14 @@ func routes(_ app: Application) throws {
     }
 
     let sensorUpdate = SensorUpdate(
-      wifi: postSensorUpdate.wifi,
-      rco2: postSensorUpdate.rco2,
-      pm01: postSensorUpdate.pm01,
+      co2: postSensorUpdate.rco2,
+      aqi: pm2ToAqi(postSensorUpdate.pm02),
       pm02: postSensorUpdate.pm02,
       pm10: postSensorUpdate.pm10,
-      pm003Count: postSensorUpdate.pm003_count,
       tvocIndex: postSensorUpdate.tvoc_index,
       noxIndex: postSensorUpdate.nox_index,
-      atmp: postSensorUpdate.atmp,
-      rhum: postSensorUpdate.rhum,
+      tempF: celsiusToFahrenheit(postSensorUpdate.atmp),
+      humidity: postSensorUpdate.rhum,
       sensorID: sensorId
     )
 
@@ -62,7 +60,7 @@ func routes(_ app: Application) throws {
     return .ok
   }
 
-  app.get("sensors", ":sensorName") { req async throws -> [SensorUpdate] in
+  app.get("sensors", ":sensorName") { req async throws in
 
     guard let sensorName = req.parameters.get("sensorName", as: String.self) else {
       throw Abort(.badRequest, reason: "Invalid sensor name")
@@ -80,6 +78,7 @@ func routes(_ app: Application) throws {
 
     let sensorUpdates = try await SensorUpdate.query(on: req.db)
       .filter(\.$sensor.$id == sensorId)
+      //   .field(\.$humidity)
       .all()
 
     return sensorUpdates

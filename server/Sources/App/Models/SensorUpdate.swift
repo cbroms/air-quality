@@ -7,14 +7,11 @@ final class SensorUpdate: Model, Content {
   @ID(key: .id)
   var id: UUID?
 
-  @Field(key: "wifi")
-  var wifi: Int?
+  @Field(key: "co2")
+  var co2: Int?
 
-  @Field(key: "rco2")
-  var rco2: Int?
-
-  @Field(key: "pm01")
-  var pm01: Int?
+  @Field(key: "aqi")
+  var aqi: Int?
 
   @Field(key: "pm02")
   var pm02: Int?
@@ -22,20 +19,17 @@ final class SensorUpdate: Model, Content {
   @Field(key: "pm10")
   var pm10: Int?
 
-  @Field(key: "pm003_count")
-  var pm003Count: Int?
-
   @Field(key: "tvoc_index")
   var tvocIndex: Int?
 
   @Field(key: "nox_index")
   var noxIndex: Int?
 
-  @Field(key: "atmp")
-  var atmp: Float?
+  @Field(key: "temp_f")
+  var tempF: Float?
 
-  @Field(key: "rhum")
-  var rhum: Int?
+  @Field(key: "humidity")
+  var humidity: Int?
 
   @Parent(key: "sensor_id")
   var sensor: Sensor
@@ -46,22 +40,20 @@ final class SensorUpdate: Model, Content {
   init() {}
 
   init(
-    id: UUID? = nil, wifi: Int?, rco2: Int?, pm01: Int?, pm02: Int?, pm10: Int?,
-    pm003Count: Int?, tvocIndex: Int?, noxIndex: Int?, atmp: Float?, rhum: Int?,
+    id: UUID? = nil, co2: Int?, aqi: Int?, pm02: Int?, pm10: Int?, tvocIndex: Int?, noxIndex: Int?,
+    tempF: Float?,
+    humidity: Int?,
     sensorID: Sensor.IDValue
   ) {
     self.id = id
-    self.wifi = wifi
-    self.rco2 = rco2
-    self.pm01 = pm01
+    self.co2 = co2
+    self.aqi = aqi
     self.pm02 = pm02
     self.pm10 = pm10
-    self.pm003Count = pm003Count
     self.tvocIndex = tvocIndex
     self.noxIndex = noxIndex
-    self.atmp = atmp
-    self.rhum = rhum
+    self.tempF = tempF
+    self.humidity = humidity
     self.$sensor.id = sensorID
   }
-
 }
