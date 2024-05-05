@@ -44,12 +44,12 @@ func routes(_ app: Application) throws {
 
     let sensorUpdate = SensorUpdate(
       co2: postSensorUpdate.rco2,
-      aqi: pm2ToAqi(postSensorUpdate.pm02),
+      aqi: pm2ToAqi(Float(postSensorUpdate.pm02 ?? 0)),
       pm02: postSensorUpdate.pm02,
       pm10: postSensorUpdate.pm10,
       tvocIndex: postSensorUpdate.tvoc_index,
       noxIndex: postSensorUpdate.nox_index,
-      tempF: celsiusToFahrenheit(postSensorUpdate.atmp),
+      tempF: celsiusToFahrenheit(postSensorUpdate.atmp ?? 0.0),
       humidity: postSensorUpdate.rhum,
       sensorID: sensorId
     )

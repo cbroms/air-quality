@@ -1,19 +1,25 @@
 func pm2ToAqi(_ pm02: Float) -> Int {
-  if pm02 <= 12.0 {
-    return (50 / 12 * pm02)
-  } else if pm02 <= 35.4 {
-    return ((100 - 50) / (35.4 - 12.0) * (pm02 - 12.0) + 50)
-  } else if pm02 <= 55.4 {
-    return ((150 - 100) / (55.4 - 35.4) * (pm02 - 35.4) + 100)
-  } else if pm02 <= 150.4 {
-    return ((200 - 150) / (150.4 - 55.4) * (pm02 - 55.4) + 150)
-  } else if pm02 <= 250.4 {
-    return ((300 - 200) / (250.4 - 150.4) * (pm02 - 150.4) + 200)
-  } else if pm02 <= 350.4 {
-    return ((400 - 300) / (350.4 - 250.4) * (pm02 - 250.4) + 300)
-  } else if pm02 <= 500.4 {
-    return ((500 - 400) / (500.4 - 350.4) * (pm02 - 350.4) + 400)
-  } else {
-    return 500
+  let breakpoints: [(cLow: Float, cHigh: Float, iLow: Int, iHigh: Int)] = [
+    (0.0, 12.0, 0, 50),
+    (12.1, 35.4, 51, 100),
+    (35.5, 55.4, 101, 150),
+    (55.5, 150.4, 151, 200),
+    (150.5, 250.4, 201, 300),
+    (250.5, 350.4, 301, 400),
+    (350.5, 500.4, 401, 500),
+  ]
+
+  let pm25Rounded = Float(pm02 * 10).rounded() / 10  // Round to one decimal place if needed
+
+  for breakpoint in breakpoints {
+    if pm25Rounded >= breakpoint.cLow && pm25Rounded <= breakpoint.cHigh {
+      let aqi =
+        Float(breakpoint.iHigh - breakpoint.iLow) / (breakpoint.cHigh - breakpoint.cLow)
+        * (pm25Rounded - breakpoint.cLow) + Float(breakpoint.iLow)
+      return Int(aqi.rounded())
+    }
   }
+
+  // If PM2.5 is out of the highest range, return the maximum AQI value.
+  return 500
 }
