@@ -8,10 +8,12 @@ final class SensorController: RouteCollection {
   func boot(routes: RoutesBuilder) throws {
     let sensors = routes.grouped("sensors")
     sensors.group(":sensorName", "measures") { sensor in
-      sensor.post(use: postMeasures)
+      sensor.post(use: postMeasures).description("Post new measures for a sensor")
       sensor.group(":start", ":end") { range in
-        range.get("simple", use: getSimpleMeasuresInRange)
-        range.get("full", use: getFullMeasuresInRange)
+        range.get("simple", use: getSimpleMeasuresInRange).description(
+          "Get AQI, temp, CO2, and humidity measures for a sensor in a time range")
+        range.get("full", use: getFullMeasuresInRange).description(
+          "Get all measures for a sensor in a time range")
       }
     }
   }
