@@ -35,14 +35,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		859A27562BE9DEBC00390EDA /* air-quality-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "air-quality-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		859A27562BE9DEBC00390EDA /* client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		859A27592BE9DEBC00390EDA /* air_quality_clientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = air_quality_clientApp.swift; sourceTree = "<group>"; };
 		859A275B2BE9DEBC00390EDA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		859A275D2BE9DEBC00390EDA /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		859A275F2BE9DEBD00390EDA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		859A27622BE9DEBD00390EDA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		859A27682BE9DEBD00390EDA /* air-quality-clientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "air-quality-clientTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		859A27722BE9DEBD00390EDA /* air-quality-clientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "air-quality-clientUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		859A27682BE9DEBD00390EDA /* clientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = clientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		859A27722BE9DEBD00390EDA /* clientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = clientUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85B1EF5C2BEB010300BE1E07 /* Sensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensor.swift; sourceTree = "<group>"; };
 		85B1EF5E2BEB011600BE1E07 /* SensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
 		85B1EF622BEB029900BE1E07 /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 		859A274D2BE9DEBC00390EDA = {
 			isa = PBXGroup;
 			children = (
-				859A27582BE9DEBC00390EDA /* air-quality-client */,
+				859A27582BE9DEBC00390EDA /* client */,
 				859A27572BE9DEBC00390EDA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,14 +84,14 @@
 		859A27572BE9DEBC00390EDA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				859A27562BE9DEBC00390EDA /* air-quality-client.app */,
-				859A27682BE9DEBD00390EDA /* air-quality-clientTests.xctest */,
-				859A27722BE9DEBD00390EDA /* air-quality-clientUITests.xctest */,
+				859A27562BE9DEBC00390EDA /* client.app */,
+				859A27682BE9DEBD00390EDA /* clientTests.xctest */,
+				859A27722BE9DEBD00390EDA /* clientUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		859A27582BE9DEBC00390EDA /* air-quality-client */ = {
+		859A27582BE9DEBC00390EDA /* client */ = {
 			isa = PBXGroup;
 			children = (
 				85B1EF642BEB02B200BE1E07 /* Networking */,
@@ -104,7 +104,7 @@
 				859A275F2BE9DEBD00390EDA /* Assets.xcassets */,
 				859A27612BE9DEBD00390EDA /* Preview Content */,
 			);
-			path = "air-quality-client";
+			path = client;
 			sourceTree = "<group>";
 		};
 		859A27612BE9DEBD00390EDA /* Preview Content */ = {
@@ -149,9 +149,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		859A27552BE9DEBC00390EDA /* air-quality-client */ = {
+		859A27552BE9DEBC00390EDA /* client */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 859A277C2BE9DEBD00390EDA /* Build configuration list for PBXNativeTarget "air-quality-client" */;
+			buildConfigurationList = 859A277C2BE9DEBD00390EDA /* Build configuration list for PBXNativeTarget "client" */;
 			buildPhases = (
 				859A27522BE9DEBC00390EDA /* Sources */,
 				859A27532BE9DEBC00390EDA /* Frameworks */,
@@ -161,14 +161,14 @@
 			);
 			dependencies = (
 			);
-			name = "air-quality-client";
+			name = client;
 			productName = "air-quality-client";
-			productReference = 859A27562BE9DEBC00390EDA /* air-quality-client.app */;
+			productReference = 859A27562BE9DEBC00390EDA /* client.app */;
 			productType = "com.apple.product-type.application";
 		};
-		859A27672BE9DEBD00390EDA /* air-quality-clientTests */ = {
+		859A27672BE9DEBD00390EDA /* clientTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 859A277F2BE9DEBD00390EDA /* Build configuration list for PBXNativeTarget "air-quality-clientTests" */;
+			buildConfigurationList = 859A277F2BE9DEBD00390EDA /* Build configuration list for PBXNativeTarget "clientTests" */;
 			buildPhases = (
 				859A27642BE9DEBD00390EDA /* Sources */,
 				859A27652BE9DEBD00390EDA /* Frameworks */,
@@ -179,14 +179,14 @@
 			dependencies = (
 				859A276A2BE9DEBD00390EDA /* PBXTargetDependency */,
 			);
-			name = "air-quality-clientTests";
+			name = clientTests;
 			productName = "air-quality-clientTests";
-			productReference = 859A27682BE9DEBD00390EDA /* air-quality-clientTests.xctest */;
+			productReference = 859A27682BE9DEBD00390EDA /* clientTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		859A27712BE9DEBD00390EDA /* air-quality-clientUITests */ = {
+		859A27712BE9DEBD00390EDA /* clientUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 859A27822BE9DEBD00390EDA /* Build configuration list for PBXNativeTarget "air-quality-clientUITests" */;
+			buildConfigurationList = 859A27822BE9DEBD00390EDA /* Build configuration list for PBXNativeTarget "clientUITests" */;
 			buildPhases = (
 				859A276E2BE9DEBD00390EDA /* Sources */,
 				859A276F2BE9DEBD00390EDA /* Frameworks */,
@@ -197,9 +197,9 @@
 			dependencies = (
 				859A27742BE9DEBD00390EDA /* PBXTargetDependency */,
 			);
-			name = "air-quality-clientUITests";
+			name = clientUITests;
 			productName = "air-quality-clientUITests";
-			productReference = 859A27722BE9DEBD00390EDA /* air-quality-clientUITests.xctest */;
+			productReference = 859A27722BE9DEBD00390EDA /* clientUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -225,7 +225,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 859A27512BE9DEBC00390EDA /* Build configuration list for PBXProject "air-quality-client" */;
+			buildConfigurationList = 859A27512BE9DEBC00390EDA /* Build configuration list for PBXProject "client" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -238,9 +238,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				859A27552BE9DEBC00390EDA /* air-quality-client */,
-				859A27672BE9DEBD00390EDA /* air-quality-clientTests */,
-				859A27712BE9DEBD00390EDA /* air-quality-clientUITests */,
+				859A27552BE9DEBC00390EDA /* client */,
+				859A27672BE9DEBD00390EDA /* clientTests */,
+				859A27712BE9DEBD00390EDA /* clientUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -304,12 +304,12 @@
 /* Begin PBXTargetDependency section */
 		859A276A2BE9DEBD00390EDA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 859A27552BE9DEBC00390EDA /* air-quality-client */;
+			target = 859A27552BE9DEBC00390EDA /* client */;
 			targetProxy = 859A27692BE9DEBD00390EDA /* PBXContainerItemProxy */;
 		};
 		859A27742BE9DEBD00390EDA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 859A27552BE9DEBC00390EDA /* air-quality-client */;
+			target = 859A27552BE9DEBC00390EDA /* client */;
 			targetProxy = 859A27732BE9DEBD00390EDA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -508,7 +508,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/air-quality-client.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/air-quality-client";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/client.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/client";
 			};
 			name = Debug;
 		};
@@ -528,7 +528,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/air-quality-client.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/air-quality-client";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/client.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/client";
 			};
 			name = Release;
 		};
@@ -571,7 +571,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		859A27512BE9DEBC00390EDA /* Build configuration list for PBXProject "air-quality-client" */ = {
+		859A27512BE9DEBC00390EDA /* Build configuration list for PBXProject "client" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				859A277A2BE9DEBD00390EDA /* Debug */,
@@ -580,7 +580,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		859A277C2BE9DEBD00390EDA /* Build configuration list for PBXNativeTarget "air-quality-client" */ = {
+		859A277C2BE9DEBD00390EDA /* Build configuration list for PBXNativeTarget "client" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				859A277D2BE9DEBD00390EDA /* Debug */,
@@ -589,7 +589,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		859A277F2BE9DEBD00390EDA /* Build configuration list for PBXNativeTarget "air-quality-clientTests" */ = {
+		859A277F2BE9DEBD00390EDA /* Build configuration list for PBXNativeTarget "clientTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				859A27802BE9DEBD00390EDA /* Debug */,
@@ -598,7 +598,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		859A27822BE9DEBD00390EDA /* Build configuration list for PBXNativeTarget "air-quality-clientUITests" */ = {
+		859A27822BE9DEBD00390EDA /* Build configuration list for PBXNativeTarget "clientUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				859A27832BE9DEBD00390EDA /* Debug */,
