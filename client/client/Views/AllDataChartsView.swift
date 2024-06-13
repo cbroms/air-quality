@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct ChartsView: View, Sendable {
+struct AllDataChartsView: View, Sendable {
     @EnvironmentObject var fetcher: SensorDataFetcher
 
     var body: some View {
@@ -11,12 +11,7 @@ struct ChartsView: View, Sendable {
                 .fontDesign(.default)
                 .fontWeight(.bold)
             VStack {
-                Text("test")
-//                ScrollView {
-//                    ForEach(fetcher.sensorData) { update in
-//                        Text("\(update.aqi ?? 0)")
-//                    }
-//                }
+                DataChartView()
             }
             .frame(maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/)
             .padding()
@@ -36,5 +31,5 @@ struct ChartsView: View, Sendable {
 }
 
 #Preview {
-    ChartsView().environmentObject(SensorDataFetcher())
+    AllDataChartsView().environmentObject(SensorDataFetcher())
 }

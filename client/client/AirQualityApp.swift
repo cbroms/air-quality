@@ -7,7 +7,7 @@ struct AirQualityApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ChartsView().environmentObject(fetcher)
+            AllDataChartsView().environmentObject(fetcher)
         }
     }
 }

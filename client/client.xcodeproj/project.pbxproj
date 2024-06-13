@@ -7,22 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		851168D62C1A8F0500B0591C /* DataChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851168D52C1A8F0500B0591C /* DataChartView.swift */; };
 		859A27602BE9DEBD00390EDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 859A275F2BE9DEBD00390EDA /* Assets.xcassets */; };
 		859A27632BE9DEBD00390EDA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 859A27622BE9DEBD00390EDA /* Preview Assets.xcassets */; };
 		85A1676E2BEB2BDB00E97940 /* AirQualityApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A1676D2BEB2BDB00E97940 /* AirQualityApp.swift */; };
 		85A167702BEB311000E97940 /* SensorDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A1676F2BEB311000E97940 /* SensorDataFetcher.swift */; };
 		85B1EF5F2BEB011600BE1E07 /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B1EF5E2BEB011600BE1E07 /* SensorData.swift */; };
-		85B1EF632BEB029900BE1E07 /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B1EF622BEB029900BE1E07 /* ChartsView.swift */; };
+		85B1EF632BEB029900BE1E07 /* AllDataChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B1EF622BEB029900BE1E07 /* AllDataChartsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		851168D52C1A8F0500B0591C /* DataChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataChartView.swift; sourceTree = "<group>"; };
 		859A27562BE9DEBC00390EDA /* client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		859A275F2BE9DEBD00390EDA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		859A27622BE9DEBD00390EDA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		85A1676D2BEB2BDB00E97940 /* AirQualityApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQualityApp.swift; sourceTree = "<group>"; };
 		85A1676F2BEB311000E97940 /* SensorDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDataFetcher.swift; sourceTree = "<group>"; };
 		85B1EF5E2BEB011600BE1E07 /* SensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
-		85B1EF622BEB029900BE1E07 /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
+		85B1EF622BEB029900BE1E07 /* AllDataChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDataChartsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +94,8 @@
 		85B1EF612BEB028300BE1E07 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				85B1EF622BEB029900BE1E07 /* ChartsView.swift */,
+				85B1EF622BEB029900BE1E07 /* AllDataChartsView.swift */,
+				851168D52C1A8F0500B0591C /* DataChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -167,8 +170,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				851168D62C1A8F0500B0591C /* DataChartView.swift in Sources */,
 				85B1EF5F2BEB011600BE1E07 /* SensorData.swift in Sources */,
-				85B1EF632BEB029900BE1E07 /* ChartsView.swift in Sources */,
+				85B1EF632BEB029900BE1E07 /* AllDataChartsView.swift in Sources */,
 				85A1676E2BEB2BDB00E97940 /* AirQualityApp.swift in Sources */,
 				85A167702BEB311000E97940 /* SensorDataFetcher.swift in Sources */,
 			);
