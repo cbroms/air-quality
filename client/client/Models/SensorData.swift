@@ -7,4 +7,9 @@ struct SensorData: Codable, Identifiable {
     var humidity: Int?
     var tempF: Float?
     var id: String { time }
+
+    var date: Date {
+        let dateFormatter = ISO8601DateFormatter()
+        return dateFormatter.date(from: time) ?? Date()
+    }
 }

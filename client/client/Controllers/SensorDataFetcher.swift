@@ -15,7 +15,7 @@ class SensorDataFetcher: ObservableObject {
 
     func getLast60Mins() async throws {
         let endIntervalDate = Date()
-        let startIntervalDate = endIntervalDate.addingTimeInterval(-3600) // 60 mins ago
+        let startIntervalDate = endIntervalDate.addingTimeInterval(-600) // 60 mins ago
         let formatter = ISO8601DateFormatter()
 
         let startTime = formatter.string(from: startIntervalDate)
