@@ -4,7 +4,11 @@ import Foundation
 
 class SensorDataFetcher: ObservableObject {
     @Published var sensorData: [SensorData] = []
-    @Published var fetchedData = false
+    @Published var aqiData: [SensorDataPoint] = []
+    @Published var tempData: [SensorDataPoint] = []
+    @Published var co2Data: [SensorDataPoint] = []
+    @Published var humidityData: [SensorDataPoint] = []
+    @Published var loading = true
 
     let sensorName = "airgradient:7aaa5e"
 
@@ -14,6 +18,7 @@ class SensorDataFetcher: ObservableObject {
     }
 
     func getLast60Mins() async throws {
+        loading = true
         let endIntervalDate = Date()
         let startIntervalDate = endIntervalDate.addingTimeInterval(-600) // 60 mins ago
         let formatter = ISO8601DateFormatter()
@@ -27,5 +32,14 @@ class SensorDataFetcher: ObservableObject {
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw FetchError.badRequest }
 
         sensorData = try JSONDecoder().decode([SensorData].self, from: data)
+
+        for data in sensorData {
+            aqiData.append(SensorDataPoint(date: data.date, observation: data.aqi ?? 0, id: data.id))
+            tempData.append(SensorDataPoint(date: data.date, observation: Int(data.tempF ?? 0.0), id: data.id))
+            co2Data.append(SensorDataPoint(date: data.date, observation: data.co2 ?? 0, id: data.id))
+            humidityData.append(SensorDataPoint(date: data.date, observation: data.humidity ?? 0, id: data.id))
+        }
+
+        loading = false
     }
 }
