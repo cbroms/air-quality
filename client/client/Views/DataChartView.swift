@@ -5,11 +5,11 @@ import SwiftUI
 struct DataChartView: View {
     @Binding var sequenceData: [SensorDataPoint]
     @Binding var loading: Bool
+    @State var gradientRange: GradientRange
 
     var body: some View {
         let maxValue = sequenceData.max { a, b in a.observation < b.observation }
-
-        let gradient = AqiStopRange().getGradient(maxValue: maxValue?.observation ?? 0)
+        let gradient = gradientRange.getGradient(maxValue: maxValue?.observation ?? 0)
 
 //        let prevColor = Color(hue: 0.69, saturation: 0.19, brightness: 0.79)
 //        let curColor = Color(hue: 0.33, saturation: 0.81, brightness: 0.76)

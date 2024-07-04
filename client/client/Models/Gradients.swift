@@ -12,7 +12,7 @@ struct IntermediateStop {
     var annotation: String
 }
 
-class DataRange {
+class GradientRange {
     var ranges: [PrimaryStopRange] = []
     var rangeMax: Int = 0
 
@@ -71,7 +71,7 @@ class DataRange {
             let adjustedStopLoc = currentStopLoc / CGFloat(maxP)
             // calculate the opacity as the adjusted location
             var newColor = stop.color
-            newColor = newColor.opacity(Double(adjustedStopLoc))
+            //     newColor = newColor.opacity(Double(adjustedStopLoc))
             return Gradient.Stop(color: newColor, location: CGFloat(adjustedStopLoc))
         }
         partialGradientStops = partialGradientStops.map(remapStop)
@@ -85,7 +85,7 @@ class DataRange {
     }
 }
 
-class AqiStopRange: DataRange {
+class AqiGradientRange: GradientRange {
     init() {
         super.init(ranges: [
             PrimaryStopRange(range: 0..<51, color: Color.green, annotation: "LO"),
@@ -95,5 +95,42 @@ class AqiStopRange: DataRange {
             PrimaryStopRange(range: 201..<300, color: Color.purple, annotation: "VUN"),
             PrimaryStopRange(range: 300..<Int.max, color: Color.indigo, annotation: "HAZ")
         ], rangeMax: 300)
+    }
+}
+
+class TempGradientRange: GradientRange {
+    init() {
+        super.init(ranges: [
+            PrimaryStopRange(range: 0..<45, color: Color.blue, annotation: ""),
+            PrimaryStopRange(range: 45..<65, color: Color.teal, annotation: ""),
+            PrimaryStopRange(range: 65..<75, color: Color.green, annotation: ""),
+            PrimaryStopRange(range: 75..<85, color: Color.yellow, annotation: ""),
+            PrimaryStopRange(range: 85..<95, color: Color.orange, annotation: ""),
+            PrimaryStopRange(range: 95..<Int.max, color: Color.red, annotation: "HAZ")
+        ], rangeMax: 95)
+    }
+}
+
+class Co2GradientRange: GradientRange {
+    init() {
+        super.init(ranges: [
+            PrimaryStopRange(range: 0..<400, color: Color.green, annotation: "LO"),
+            PrimaryStopRange(range: 400..<701, color: Color.green, annotation: "LO"),
+            PrimaryStopRange(range: 701..<1001, color: Color.yellow, annotation: "MOD"),
+            PrimaryStopRange(range: 1001..<1501, color: Color.orange, annotation: "UNS"),
+            PrimaryStopRange(range: 1501..<2001, color: Color.red, annotation: "UN"),
+            PrimaryStopRange(range: 2001..<2500, color: Color.purple, annotation: "VUN"),
+            PrimaryStopRange(range: 2500..<Int.max, color: Color.indigo, annotation: "HAZ")
+        ], rangeMax: 2500)
+    }
+}
+
+class HumidityGradientRange: GradientRange {
+    init() {
+        super.init(ranges: [
+            PrimaryStopRange(range: 0..<30, color: Color.yellow, annotation: ""),
+            PrimaryStopRange(range: 30..<80, color: Color.green, annotation: ""),
+            PrimaryStopRange(range: 80..<Int.max, color: Color.blue, annotation: "")
+        ], rangeMax: 100)
     }
 }
