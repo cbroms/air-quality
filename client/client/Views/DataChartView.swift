@@ -11,23 +11,8 @@ struct DataChartView: View {
         let maxValue = sequenceData.max { a, b in a.observation < b.observation }
         let gradient = gradientRange.getGradient(maxValue: maxValue?.observation ?? 0)
 
-//        let prevColor = Color(hue: 0.69, saturation: 0.19, brightness: 0.79)
-//        let curColor = Color(hue: 0.33, saturation: 0.81, brightness: 0.76)
-//        let curGradient = LinearGradient(
-//            gradient: Gradient(0
-//                colors: [
-//                    curColor.opacity(0.5),
-//                    curColor.opacity(0.2),
-//                    curColor.opacity(0.05),
-//                ]
-//
-//            ),
-//            startPoint: .top,
-//            endPoint: .bottom
-//        )
-
         if loading {
-            ProgressView().progressViewStyle(.circular).frame(height: 300)
+            ProgressView().progressViewStyle(.circular).frame(height: 62)
         }
         else {
             Chart(sequenceData) {
@@ -42,19 +27,9 @@ struct DataChartView: View {
                     y: .value("AQI", $0.observation)
                 )
                 .foregroundStyle(gradient)
-            }.frame(height: 300)
-
-//            BarMark(
-//                x: .value("Time", $0.date ..< $0.date.advanced(by: 60)),
-//                y: .value("AQI", $0.aqi ?? 0)
-//            )
-//            .foregroundStyle(.green)
+            }.frame(height: 62)
+                .chartYAxis(.hidden)
+                .chartXAxis(.hidden)
         }
-//        .chartXAxis {c
-//            AxisMarks(preset: .aligned, position: .bottom) { _ in
-//                AxisValueLabel()
-//                AxisGridLine()
-//            }
-//        }
     }
 }

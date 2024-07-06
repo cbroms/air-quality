@@ -10,25 +10,29 @@
 		851168D62C1A8F0500B0591C /* DataChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851168D52C1A8F0500B0591C /* DataChartView.swift */; };
 		857B18F92C35C0C600350EC3 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857B18F82C35C0C600350EC3 /* Gradients.swift */; };
 		857B18FB2C36467F00350EC3 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857B18FA2C36467F00350EC3 /* Color.swift */; };
+		857B18FD2C38CBC600350EC3 /* AllDataChartsViewSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857B18FC2C38CBC600350EC3 /* AllDataChartsViewSmall.swift */; };
+		857B19072C38D97400350EC3 /* StyleViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857B19062C38D97400350EC3 /* StyleViewModifiers.swift */; };
 		859A27602BE9DEBD00390EDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 859A275F2BE9DEBD00390EDA /* Assets.xcassets */; };
 		859A27632BE9DEBD00390EDA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 859A27622BE9DEBD00390EDA /* Preview Assets.xcassets */; };
 		85A1676E2BEB2BDB00E97940 /* AirQualityApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A1676D2BEB2BDB00E97940 /* AirQualityApp.swift */; };
 		85A167702BEB311000E97940 /* SensorDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A1676F2BEB311000E97940 /* SensorDataFetcher.swift */; };
 		85B1EF5F2BEB011600BE1E07 /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B1EF5E2BEB011600BE1E07 /* SensorData.swift */; };
-		85B1EF632BEB029900BE1E07 /* AllDataChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B1EF622BEB029900BE1E07 /* AllDataChartsView.swift */; };
+		85B1EF632BEB029900BE1E07 /* AllDataChartsViewLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B1EF622BEB029900BE1E07 /* AllDataChartsViewLarge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		851168D52C1A8F0500B0591C /* DataChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataChartView.swift; sourceTree = "<group>"; };
 		857B18F82C35C0C600350EC3 /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
 		857B18FA2C36467F00350EC3 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		857B18FC2C38CBC600350EC3 /* AllDataChartsViewSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDataChartsViewSmall.swift; sourceTree = "<group>"; };
+		857B19062C38D97400350EC3 /* StyleViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleViewModifiers.swift; sourceTree = "<group>"; };
 		859A27562BE9DEBC00390EDA /* client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		859A275F2BE9DEBD00390EDA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		859A27622BE9DEBD00390EDA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		85A1676D2BEB2BDB00E97940 /* AirQualityApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQualityApp.swift; sourceTree = "<group>"; };
 		85A1676F2BEB311000E97940 /* SensorDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDataFetcher.swift; sourceTree = "<group>"; };
 		85B1EF5E2BEB011600BE1E07 /* SensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
-		85B1EF622BEB029900BE1E07 /* AllDataChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDataChartsView.swift; sourceTree = "<group>"; };
+		85B1EF622BEB029900BE1E07 /* AllDataChartsViewLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDataChartsViewLarge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,8 +104,10 @@
 		85B1EF612BEB028300BE1E07 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				85B1EF622BEB029900BE1E07 /* AllDataChartsView.swift */,
+				85B1EF622BEB029900BE1E07 /* AllDataChartsViewLarge.swift */,
 				851168D52C1A8F0500B0591C /* DataChartView.swift */,
+				857B18FC2C38CBC600350EC3 /* AllDataChartsViewSmall.swift */,
+				857B19062C38D97400350EC3 /* StyleViewModifiers.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -179,10 +185,12 @@
 				851168D62C1A8F0500B0591C /* DataChartView.swift in Sources */,
 				85B1EF5F2BEB011600BE1E07 /* SensorData.swift in Sources */,
 				857B18FB2C36467F00350EC3 /* Color.swift in Sources */,
-				85B1EF632BEB029900BE1E07 /* AllDataChartsView.swift in Sources */,
+				85B1EF632BEB029900BE1E07 /* AllDataChartsViewLarge.swift in Sources */,
+				857B19072C38D97400350EC3 /* StyleViewModifiers.swift in Sources */,
 				85A1676E2BEB2BDB00E97940 /* AirQualityApp.swift in Sources */,
 				85A167702BEB311000E97940 /* SensorDataFetcher.swift in Sources */,
 				857B18F92C35C0C600350EC3 /* Gradients.swift in Sources */,
+				857B18FD2C38CBC600350EC3 /* AllDataChartsViewSmall.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

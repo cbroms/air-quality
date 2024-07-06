@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct AllDataChartsView: View, Sendable {
+struct AllDataChartsViewLarge: View, Sendable {
     @EnvironmentObject var fetcher: SensorDataFetcher
 
     var body: some View {
@@ -74,5 +74,5 @@ struct AllDataChartsView: View, Sendable {
 }
 
 #Preview {
-    AllDataChartsView().environmentObject(SensorDataFetcher())
+    AllDataChartsViewLarge().environmentObject(SensorDataFetcher())
 }
