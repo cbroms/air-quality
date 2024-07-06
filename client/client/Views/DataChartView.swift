@@ -5,13 +5,10 @@ import SwiftUI
 struct DataChartView: View {
     @Binding var sequenceData: [SensorDataPoint]
     @Binding var loading: Bool
-    @State var gradientRange: GradientRange
+    @Binding var gradient: LinearGradient?
 
     var body: some View {
-        let maxValue = sequenceData.max { a, b in a.observation < b.observation }
-        let gradient = gradientRange.getGradient(maxValue: maxValue?.observation ?? 0)
-
-        if loading {
+        if loading || gradient == nil {
             ProgressView().progressViewStyle(.circular).frame(height: 62)
         }
         else {
@@ -26,7 +23,7 @@ struct DataChartView: View {
                     x: .value("Time", $0.date),
                     y: .value("AQI", $0.observation)
                 )
-                .foregroundStyle(gradient)
+                .foregroundStyle(gradient!)
             }.frame(height: 62)
                 .chartYAxis(.hidden)
                 .chartXAxis(.hidden)

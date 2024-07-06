@@ -3,11 +3,11 @@ import SwiftUI
 
 @main
 struct AirQualityApp: App {
-    @StateObject private var fetcher = SensorDataFetcher()
+    @StateObject private var sensorDataController = SensorDataController()
 
     var body: some Scene {
         WindowGroup {
-            AllDataChartsViewSmall().environmentObject(fetcher)
+            AllDataChartsViewSmall().environmentObject(sensorDataController)
         }
     }
 }

@@ -2,36 +2,43 @@ import Foundation
 import SwiftUI
 
 struct AllDataChartsViewSmall: View, Sendable {
-    @EnvironmentObject var fetcher: SensorDataFetcher
+    @EnvironmentObject var sensorDataController: SensorDataController
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
-                // AQI
-                HStack(content: {
-                    Text("US AQI").headerStyle()
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(.gray)
-                        .padding(.vertical)
-                })
-                HStack(content: {
-                    DataChartView(sequenceData: $fetcher.aqiData, loading: $fetcher.loading, gradientRange: AqiGradientRange())
-                    Spacer()
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text("NOW").labelStyle()
-                            Text("LO").tagStyle(color: Color(UIColor.systemGreen))
-                        }
-                        Text("\(fetcher.aqiData.last?.observation ?? 0)").bigNumberStyle()
-                    }.padding(.horizontal)
-                })
-            }
+            MetricSummaryRowView(
+                sequenceData: $sensorDataController.aqiData.data,
+                loading: $sensorDataController.loading,
+                latestObservation: $sensorDataController.latestAqiMetric,
+                gradient: $sensorDataController.aqiGradient.gradient,
+                metricName: "US AQI"
+            )
+            MetricSummaryRowView(
+                sequenceData: $sensorDataController.co2Data.data,
+                loading: $sensorDataController.loading,
+                latestObservation: $sensorDataController.latestCo2Metric,
+                gradient: $sensorDataController.co2Gradient.gradient,
+                metricName: "CO₂"
+            )
+            MetricSummaryRowView(
+                sequenceData: $sensorDataController.tempData.data,
+                loading: $sensorDataController.loading,
+                latestObservation: $sensorDataController.latestTempMetric,
+                gradient: $sensorDataController.tempGradient.gradient,
+                metricName: "Temperature"
+            )
+            MetricSummaryRowView(
+                sequenceData: $sensorDataController.humidityData.data,
+                loading: $sensorDataController.loading,
+                latestObservation: $sensorDataController.latestHumidityMetric,
+                gradient: $sensorDataController.humidityGradient.gradient,
+                metricName: "Humidity"
+            )
         }
         .padding()
         .task {
             do {
-                try await fetcher.getLast60Mins()
+                try await sensorDataController.getLast60Mins()
             } catch {
                 print(error)
             }
@@ -40,5 +47,5 @@ struct AllDataChartsViewSmall: View, Sendable {
 }
 
 #Preview {
-    AllDataChartsViewSmall().environmentObject(SensorDataFetcher())
+    AllDataChartsViewSmall().environmentObject(SensorDataController())
 }

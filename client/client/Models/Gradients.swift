@@ -1,50 +1,65 @@
 import Foundation
 import SwiftUI
 
-struct PrimaryStopRange {
+struct GradientRange {
     var range: Range<Int>
     var color: Color
     var annotation: String
 }
 
-struct IntermediateStop {
-    var percent: Float
+struct IntermediateGradientPosition {
+    var percentThroughGradient: Float
+    var value: Int
     var annotation: String
+    var annotationColor: Color
 }
 
-class GradientRange {
-    var ranges: [PrimaryStopRange] = []
+class GradientManager {
+    var ranges: [GradientRange] = []
     var rangeMax: Int = 0
+    var gradient: LinearGradient?
 
-    init(ranges: [PrimaryStopRange], rangeMax: Int) {
+    init(ranges: [GradientRange], rangeMax: Int, maxValue: Int) {
         self.ranges = ranges
         self.rangeMax = rangeMax
+
+        computeGradient(maxValue: maxValue)
     }
 
-    func getIntermediateStopFromValue(value: Int) -> IntermediateStop {
+    func getIntermediateGradientPositionFromValue(value: Int) -> IntermediateGradientPosition {
         let p = Float(value) / Float(rangeMax)
         for range in ranges {
             if range.range.contains(value) {
-                return IntermediateStop(percent: p, annotation: range.annotation)
+                return IntermediateGradientPosition(
+                    percentThroughGradient: p,
+                    value: value,
+                    annotation: range.annotation,
+                    annotationColor: range.color
+                )
             }
         }
-        return IntermediateStop(percent: p, annotation: "?")
+        return IntermediateGradientPosition(
+            percentThroughGradient: p,
+            value: value,
+            annotation: "?",
+            annotationColor: Color.white
+        )
     }
 
-    func getGradient(maxValue: Int) -> LinearGradient {
+    func computeGradient(maxValue: Int) {
         let baseGradientStops = ranges.map { range in
-            Gradient.Stop(color: range.color, location: CGFloat(getIntermediateStopFromValue(value: range.range.lowerBound).percent))
+            Gradient.Stop(color: range.color, location: CGFloat(getIntermediateGradientPositionFromValue(value: range.range.lowerBound).percentThroughGradient))
         }
         let baseGradient = Gradient(stops: baseGradientStops)
 
-        let maxP = getIntermediateStopFromValue(value: maxValue).percent
+        let maxP = getIntermediateGradientPositionFromValue(value: maxValue).percentThroughGradient
         // reduce the range of the gradient to 0 -> max value
         var partialGradientStops = baseGradient.stops.filter { stop in
             stop.location >= 0 && stop.location <= CGFloat(maxP)
         }
 
-        // if the partial gradient is between two values, find the intermediate color
-        // and add it to the end
+        // if the partial gradient is between two values, find the intermediate
+        // color and add it to the end
         if partialGradientStops.count < baseGradient.stops.count {
             // find the range we're in
             for (index, range) in ranges.enumerated() {
@@ -58,7 +73,7 @@ class GradientRange {
                     // create an interpolated color between the current and next colors
                     let interpolatedColor = UIColor(range.color).interpolateRGBColorTo(end: UIColor(nextColor), fraction: CGFloat(percentBetweenValues))
                     // calculate the max value's location; this is the location to place the stop with the new color
-                    let stopLocation = getIntermediateStopFromValue(value: maxValue).percent
+                    let stopLocation = getIntermediateGradientPositionFromValue(value: maxValue).percentThroughGradient
                     // now add as the last stop
                     partialGradientStops.append(Gradient.Stop(color: Color(interpolatedColor), location: CGFloat(stopLocation)))
                 }
@@ -77,7 +92,7 @@ class GradientRange {
         partialGradientStops = partialGradientStops.map(remapStop)
         // finally create the adjusted gradient
         let partialGradient = Gradient(stops: partialGradientStops)
-        return LinearGradient(
+        gradient = LinearGradient(
             gradient: partialGradient,
             startPoint: .bottom,
             endPoint: .top
@@ -85,52 +100,52 @@ class GradientRange {
     }
 }
 
-class AqiGradientRange: GradientRange {
-    init() {
+class AqiGradientManager: GradientManager {
+    init(maxValue: Int) {
         super.init(ranges: [
-            PrimaryStopRange(range: 0..<51, color: Color.green, annotation: "LO"),
-            PrimaryStopRange(range: 51..<101, color: Color.yellow, annotation: "MOD"),
-            PrimaryStopRange(range: 101..<151, color: Color.orange, annotation: "UNS"),
-            PrimaryStopRange(range: 151..<201, color: Color.red, annotation: "UN"),
-            PrimaryStopRange(range: 201..<300, color: Color.purple, annotation: "VUN"),
-            PrimaryStopRange(range: 300..<Int.max, color: Color.indigo, annotation: "HAZ")
-        ], rangeMax: 300)
+            GradientRange(range: 0..<51, color: Color.green, annotation: "LO"),
+            GradientRange(range: 51..<101, color: Color.yellow, annotation: "MOD"),
+            GradientRange(range: 101..<151, color: Color.orange, annotation: "UNS"),
+            GradientRange(range: 151..<201, color: Color.red, annotation: "UN"),
+            GradientRange(range: 201..<300, color: Color.purple, annotation: "VUN"),
+            GradientRange(range: 300..<Int.max, color: Color.indigo, annotation: "HAZ")
+        ], rangeMax: 300, maxValue: maxValue)
     }
 }
 
-class TempGradientRange: GradientRange {
-    init() {
+class TempGradientManager: GradientManager {
+    init(maxValue: Int) {
         super.init(ranges: [
-            PrimaryStopRange(range: 0..<45, color: Color.blue, annotation: ""),
-            PrimaryStopRange(range: 45..<65, color: Color.teal, annotation: ""),
-            PrimaryStopRange(range: 65..<75, color: Color.green, annotation: ""),
-            PrimaryStopRange(range: 75..<85, color: Color.yellow, annotation: ""),
-            PrimaryStopRange(range: 85..<95, color: Color.orange, annotation: ""),
-            PrimaryStopRange(range: 95..<Int.max, color: Color.red, annotation: "HAZ")
-        ], rangeMax: 95)
+            GradientRange(range: 0..<45, color: Color.blue, annotation: ""),
+            GradientRange(range: 45..<65, color: Color.teal, annotation: ""),
+            GradientRange(range: 65..<75, color: Color.green, annotation: ""),
+            GradientRange(range: 75..<85, color: Color.yellow, annotation: ""),
+            GradientRange(range: 85..<95, color: Color.orange, annotation: ""),
+            GradientRange(range: 95..<Int.max, color: Color.red, annotation: "HAZ")
+        ], rangeMax: 95, maxValue: maxValue)
     }
 }
 
-class Co2GradientRange: GradientRange {
-    init() {
+class Co2GradientManager: GradientManager {
+    init(maxValue: Int) {
         super.init(ranges: [
-            PrimaryStopRange(range: 0..<400, color: Color.green, annotation: "LO"),
-            PrimaryStopRange(range: 400..<701, color: Color.green, annotation: "LO"),
-            PrimaryStopRange(range: 701..<1001, color: Color.yellow, annotation: "MOD"),
-            PrimaryStopRange(range: 1001..<1501, color: Color.orange, annotation: "UNS"),
-            PrimaryStopRange(range: 1501..<2001, color: Color.red, annotation: "UN"),
-            PrimaryStopRange(range: 2001..<2500, color: Color.purple, annotation: "VUN"),
-            PrimaryStopRange(range: 2500..<Int.max, color: Color.indigo, annotation: "HAZ")
-        ], rangeMax: 2500)
+            GradientRange(range: 0..<400, color: Color.green, annotation: "LO"),
+            GradientRange(range: 400..<701, color: Color.green, annotation: "LO"),
+            GradientRange(range: 701..<1001, color: Color.yellow, annotation: "MOD"),
+            GradientRange(range: 1001..<1501, color: Color.orange, annotation: "UNS"),
+            GradientRange(range: 1501..<2001, color: Color.red, annotation: "UN"),
+            GradientRange(range: 2001..<2500, color: Color.purple, annotation: "VUN"),
+            GradientRange(range: 2500..<Int.max, color: Color.indigo, annotation: "HAZ")
+        ], rangeMax: 2500, maxValue: maxValue)
     }
 }
 
-class HumidityGradientRange: GradientRange {
-    init() {
+class HumidityGradientManager: GradientManager {
+    init(maxValue: Int) {
         super.init(ranges: [
-            PrimaryStopRange(range: 0..<30, color: Color.yellow, annotation: ""),
-            PrimaryStopRange(range: 30..<80, color: Color.green, annotation: ""),
-            PrimaryStopRange(range: 80..<Int.max, color: Color.blue, annotation: "")
-        ], rangeMax: 100)
+            GradientRange(range: 0..<30, color: Color.yellow, annotation: ""),
+            GradientRange(range: 30..<80, color: Color.green, annotation: ""),
+            GradientRange(range: 80..<Int.max, color: Color.blue, annotation: "")
+        ], rangeMax: 100, maxValue: maxValue)
     }
 }
