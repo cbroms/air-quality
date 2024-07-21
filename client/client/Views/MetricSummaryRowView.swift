@@ -2,10 +2,8 @@ import Foundation
 import SwiftUI
 
 struct MetricSummaryRowView: View {
-    @Binding var sequenceData: [SensorDataPoint]
+    @Binding var sensorDataMetric: SensorDataMetric
     @Binding var loading: Bool
-    @Binding var latestObservation: IntermediateGradientPosition?
-    @Binding var gradient: LinearGradient?
     @State var metricName: String
 
     var body: some View {
@@ -20,18 +18,18 @@ struct MetricSummaryRowView: View {
             })
             HStack(content: {
                 DataChartView(
-                    sequenceData: $sequenceData,
+                    sequenceData: $sensorDataMetric.dataPointCollection.data,
                     loading: $loading,
-                    gradient: $gradient)
+                    gradient: $sensorDataMetric.gradient.linearGradient)
                 Spacer()
                 VStack(alignment: .leading) {
                     HStack {
                         Text("NOW").labelStyle()
-                        if latestObservation != nil {
-                            Text(latestObservation?.annotation ?? "").tagStyle(color: latestObservation?.annotationColor ?? Color.gray)
+                        if sensorDataMetric.latestMetric != nil {
+                            Text(sensorDataMetric.latestMetric?.annotation ?? "").tagStyle(color: sensorDataMetric.latestMetric?.annotationColor ?? Color.gray)
                         }
                     }
-                    Text("\(latestObservation?.value ?? 0)").bigNumberStyle()
+                    Text("\(sensorDataMetric.latestMetric?.value ?? 0)").bigNumberStyle()
 
                 }.padding(.horizontal)
             })

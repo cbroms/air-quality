@@ -7,31 +7,23 @@ struct AllDataChartsViewSmall: View, Sendable {
     var body: some View {
         ScrollView {
             MetricSummaryRowView(
-                sequenceData: $sensorDataController.aqiData.data,
+                sensorDataMetric: $sensorDataController.aqi,
                 loading: $sensorDataController.loading,
-                latestObservation: $sensorDataController.latestAqiMetric,
-                gradient: $sensorDataController.aqiGradient.gradient,
                 metricName: "US AQI"
             )
             MetricSummaryRowView(
-                sequenceData: $sensorDataController.co2Data.data,
+                sensorDataMetric: $sensorDataController.co2,
                 loading: $sensorDataController.loading,
-                latestObservation: $sensorDataController.latestCo2Metric,
-                gradient: $sensorDataController.co2Gradient.gradient,
                 metricName: "CO₂"
             )
             MetricSummaryRowView(
-                sequenceData: $sensorDataController.tempData.data,
+                sensorDataMetric: $sensorDataController.temp,
                 loading: $sensorDataController.loading,
-                latestObservation: $sensorDataController.latestTempMetric,
-                gradient: $sensorDataController.tempGradient.gradient,
                 metricName: "Temperature"
             )
             MetricSummaryRowView(
-                sequenceData: $sensorDataController.humidityData.data,
+                sensorDataMetric: $sensorDataController.humidity,
                 loading: $sensorDataController.loading,
-                latestObservation: $sensorDataController.latestHumidityMetric,
-                gradient: $sensorDataController.humidityGradient.gradient,
                 metricName: "Humidity"
             )
         }

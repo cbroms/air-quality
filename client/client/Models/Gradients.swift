@@ -17,7 +17,7 @@ struct IntermediateGradientPosition {
 class GradientManager {
     var ranges: [GradientRange] = []
     var rangeMax: Int = 0
-    var gradient: LinearGradient?
+    var linearGradient: LinearGradient?
 
     init(ranges: [GradientRange], rangeMax: Int, maxValue: Int) {
         self.ranges = ranges
@@ -92,7 +92,7 @@ class GradientManager {
         partialGradientStops = partialGradientStops.map(remapStop)
         // finally create the adjusted gradient
         let partialGradient = Gradient(stops: partialGradientStops)
-        gradient = LinearGradient(
+        linearGradient = LinearGradient(
             gradient: partialGradient,
             startPoint: .bottom,
             endPoint: .top

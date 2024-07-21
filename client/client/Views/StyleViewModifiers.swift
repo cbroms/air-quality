@@ -37,7 +37,7 @@ struct BigNumberStyle: ViewModifier {
         content
             .font(.system(size: 28, weight: .regular, design: .monospaced))
             .foregroundColor(Color(UIColor.white))
-            .frame(width: 72, alignment: .leading)
+            .frame(width: 90, alignment: .leading)
     }
 }
 

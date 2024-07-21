@@ -13,23 +13,20 @@ struct SensorDataPointCollection {
     }
 }
 
+struct SensorDataMetric {
+    var dataPointCollection = SensorDataPointCollection()
+    var gradient: GradientManager
+    var latestMetric: IntermediateGradientPosition?
+}
+
 class SensorDataController: ObservableObject {
     @Published var sensorData: [SensorData] = []
-    @Published var aqiData = SensorDataPointCollection()
-    @Published var tempData = SensorDataPointCollection()
-    @Published var co2Data = SensorDataPointCollection()
-    @Published var humidityData = SensorDataPointCollection()
     @Published var loading = true
 
-    @Published var aqiGradient = AqiGradientManager(maxValue: 0)
-    @Published var tempGradient = TempGradientManager(maxValue: 0)
-    @Published var co2Gradient = Co2GradientManager(maxValue: 0)
-    @Published var humidityGradient = HumidityGradientManager(maxValue: 0)
-
-    @Published var latestAqiMetric: IntermediateGradientPosition? = nil
-    @Published var latestTempMetric: IntermediateGradientPosition? = nil
-    @Published var latestCo2Metric: IntermediateGradientPosition? = nil
-    @Published var latestHumidityMetric: IntermediateGradientPosition? = nil
+    @Published var aqi = SensorDataMetric(gradient: AqiGradientManager(maxValue: 0))
+    @Published var temp = SensorDataMetric(gradient: TempGradientManager(maxValue: 0))
+    @Published var co2 = SensorDataMetric(gradient: Co2GradientManager(maxValue: 0))
+    @Published var humidity = SensorDataMetric(gradient: HumidityGradientManager(maxValue: 0))
 
     let sensorName = "airgradient:7aaa5e"
 
@@ -55,21 +52,21 @@ class SensorDataController: ObservableObject {
         sensorData = try JSONDecoder().decode([SensorData].self, from: data)
 
         for data in sensorData {
-            aqiData.data.append(SensorDataPoint(date: data.date, observation: data.aqi ?? 0, id: data.id))
-            tempData.data.append(SensorDataPoint(date: data.date, observation: Int(data.tempF ?? 0.0), id: data.id))
-            co2Data.data.append(SensorDataPoint(date: data.date, observation: data.co2 ?? 0, id: data.id))
-            humidityData.data.append(SensorDataPoint(date: data.date, observation: data.humidity ?? 0, id: data.id))
+            aqi.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.aqi ?? 0, id: data.id))
+            temp.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: Int(data.tempF ?? 0.0), id: data.id))
+            co2.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.co2 ?? 0, id: data.id))
+            humidity.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.humidity ?? 0, id: data.id))
         }
 
-        latestAqiMetric = aqiGradient.getIntermediateGradientPositionFromValue(value: aqiData.getLatest().observation)
-        latestCo2Metric = co2Gradient.getIntermediateGradientPositionFromValue(value: co2Data.getLatest().observation)
-        latestTempMetric = tempGradient.getIntermediateGradientPositionFromValue(value: tempData.getLatest().observation)
-        latestHumidityMetric = humidityGradient.getIntermediateGradientPositionFromValue(value: humidityData.getLatest().observation)
+        aqi.latestMetric = aqi.gradient.getIntermediateGradientPositionFromValue(value: aqi.dataPointCollection.getLatest().observation)
+        co2.latestMetric = co2.gradient.getIntermediateGradientPositionFromValue(value: co2.dataPointCollection.getLatest().observation)
+        temp.latestMetric = temp.gradient.getIntermediateGradientPositionFromValue(value: temp.dataPointCollection.getLatest().observation)
+        humidity.latestMetric = humidity.gradient.getIntermediateGradientPositionFromValue(value: humidity.dataPointCollection.getLatest().observation)
 
-        aqiGradient.computeGradient(maxValue: aqiData.getMax())
-        co2Gradient.computeGradient(maxValue: co2Data.getMax())
-        tempGradient.computeGradient(maxValue: tempData.getMax())
-        humidityGradient.computeGradient(maxValue: humidityData.getMax())
+        aqi.gradient.computeGradient(maxValue: aqi.dataPointCollection.getMax())
+        co2.gradient.computeGradient(maxValue: co2.dataPointCollection.getMax())
+        temp.gradient.computeGradient(maxValue: temp.dataPointCollection.getMax())
+        humidity.gradient.computeGradient(maxValue: humidity.dataPointCollection.getMax())
 
         loading = false
     }
