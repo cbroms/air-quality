@@ -47,11 +47,15 @@ class GradientManager {
     }
 
     func computeGradient(maxValue: Int) {
+        // the base gradient is the full gradient from the minimum to max
+        // specified in the GradientManager, for example 0-300 for AQI
         let baseGradientStops = ranges.map { range in
             Gradient.Stop(color: range.color, location: CGFloat(getIntermediateGradientPositionFromValue(value: range.range.lowerBound).percentThroughGradient))
         }
         let baseGradient = Gradient(stops: baseGradientStops)
 
+        // now we filter down the gradient to only include the colors
+        // necessary to display the actual data range, like 0-153
         let maxP = getIntermediateGradientPositionFromValue(value: maxValue).percentThroughGradient
         // reduce the range of the gradient to 0 -> max value
         var partialGradientStops = baseGradient.stops.filter { stop in
@@ -86,7 +90,7 @@ class GradientManager {
             let adjustedStopLoc = currentStopLoc / CGFloat(maxP)
             // calculate the opacity as the adjusted location
             var newColor = stop.color
-            //     newColor = newColor.opacity(Double(adjustedStopLoc))
+            newColor = newColor.opacity(Double(adjustedStopLoc))
             return Gradient.Stop(color: newColor, location: CGFloat(adjustedStopLoc))
         }
         partialGradientStops = partialGradientStops.map(remapStop)
@@ -105,7 +109,7 @@ class AqiGradientManager: GradientManager {
         super.init(ranges: [
             GradientRange(range: 0..<51, color: Color.green, annotation: "LO"),
             GradientRange(range: 51..<101, color: Color.yellow, annotation: "MOD"),
-            GradientRange(range: 101..<151, color: Color.orange, annotation: "UNS"),
+            GradientRange(range: 101..<151, color: Color.orange, annotation: "HI"),
             GradientRange(range: 151..<201, color: Color.red, annotation: "UN"),
             GradientRange(range: 201..<300, color: Color.purple, annotation: "VUN"),
             GradientRange(range: 300..<Int.max, color: Color.indigo, annotation: "HAZ")
@@ -131,9 +135,9 @@ class Co2GradientManager: GradientManager {
         super.init(ranges: [
             GradientRange(range: 0..<400, color: Color.green, annotation: "LO"),
             GradientRange(range: 400..<701, color: Color.green, annotation: "LO"),
-            GradientRange(range: 701..<1001, color: Color.yellow, annotation: "MOD"),
-            GradientRange(range: 1001..<1501, color: Color.orange, annotation: "UNS"),
-            GradientRange(range: 1501..<2001, color: Color.red, annotation: "UN"),
+            GradientRange(range: 701..<1201, color: Color.yellow, annotation: "MOD"),
+            GradientRange(range: 1201..<1601, color: Color.orange, annotation: "HI"),
+            GradientRange(range: 1601..<2001, color: Color.red, annotation: "UN"),
             GradientRange(range: 2001..<2500, color: Color.purple, annotation: "VUN"),
             GradientRange(range: 2500..<Int.max, color: Color.indigo, annotation: "HAZ")
         ], rangeMax: 2500, maxValue: maxValue)
@@ -147,5 +151,18 @@ class HumidityGradientManager: GradientManager {
             GradientRange(range: 30..<80, color: Color.green, annotation: ""),
             GradientRange(range: 80..<Int.max, color: Color.blue, annotation: "")
         ], rangeMax: 100, maxValue: maxValue)
+    }
+}
+
+class TvocGradientManager: GradientManager {
+    init(maxValue: Int) {
+        super.init(ranges: [
+            GradientRange(range: 0..<221, color: Color.green, annotation: "LO"),
+            GradientRange(range: 221..<661, color: Color.yellow, annotation: "MOD"),
+            GradientRange(range: 661..<1431, color: Color.orange, annotation: "HI"),
+            GradientRange(range: 1431..<2201, color: Color.red, annotation: "UN"),
+            GradientRange(range: 2201..<3300, color: Color.purple, annotation: "VUN"),
+            GradientRange(range: 3300..<Int.max, color: Color.indigo, annotation: "HAZ")
+        ], rangeMax: 3300, maxValue: maxValue)
     }
 }

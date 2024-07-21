@@ -5,6 +5,15 @@ struct HeaderStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(size: 18, weight: .bold, design: .monospaced))
+            .foregroundColor(Color(UIColor.systemGray))
+            .textCase(/*@START_MENU_TOKEN@*/ .uppercase/*@END_MENU_TOKEN@*/)
+    }
+}
+
+struct SubHeaderStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 18, weight: .regular, design: .monospaced))
             .foregroundColor(Color(UIColor.systemGray2))
     }
 }
@@ -44,6 +53,10 @@ struct BigNumberStyle: ViewModifier {
 extension View {
     func headerStyle() -> some View {
         modifier(HeaderStyle())
+    }
+
+    func subHeaderStyle() -> some View {
+        modifier(SubHeaderStyle())
     }
 
     func tagStyle(color: Color = Color(UIColor.systemGreen)) -> some View {

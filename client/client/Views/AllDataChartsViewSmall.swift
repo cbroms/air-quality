@@ -14,17 +14,26 @@ struct AllDataChartsViewSmall: View, Sendable {
             MetricSummaryRowView(
                 sensorDataMetric: $sensorDataController.co2,
                 loading: $sensorDataController.loading,
-                metricName: "CO₂"
+                metricName: "CO₂",
+                metricMeasurementType: "ppm"
+            )
+            MetricSummaryRowView(
+                sensorDataMetric: $sensorDataController.tvoc,
+                loading: $sensorDataController.loading,
+                metricName: "TVOC",
+                metricMeasurementType: "ppb"
             )
             MetricSummaryRowView(
                 sensorDataMetric: $sensorDataController.temp,
                 loading: $sensorDataController.loading,
-                metricName: "Temperature"
+                metricName: "Temp",
+                metricMeasurementType: "°F"
             )
             MetricSummaryRowView(
                 sensorDataMetric: $sensorDataController.humidity,
                 loading: $sensorDataController.loading,
-                metricName: "Humidity"
+                metricName: "Humidity",
+                metricMeasurementType: "%"
             )
         }
         .padding()

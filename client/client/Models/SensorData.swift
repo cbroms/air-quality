@@ -6,6 +6,10 @@ struct SensorData: Codable, Identifiable {
     var co2: Int?
     var humidity: Int?
     var tempF: Float?
+    var pm02: Int?
+    var pm10: Int?
+    var tvocIndex: Int?
+    var noxIndex: Int?
     var id: String { time }
 
     var date: Date {

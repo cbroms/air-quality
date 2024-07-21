@@ -27,6 +27,8 @@ class SensorDataController: ObservableObject {
     @Published var temp = SensorDataMetric(gradient: TempGradientManager(maxValue: 0))
     @Published var co2 = SensorDataMetric(gradient: Co2GradientManager(maxValue: 0))
     @Published var humidity = SensorDataMetric(gradient: HumidityGradientManager(maxValue: 0))
+    @Published var tvoc = SensorDataMetric(gradient: TvocGradientManager(maxValue: 0))
+    
 
     let sensorName = "airgradient:7aaa5e"
 
@@ -44,7 +46,7 @@ class SensorDataController: ObservableObject {
         let startTime = formatter.string(from: startIntervalDate)
         let endTime = formatter.string(from: endIntervalDate)
 
-        let url = URL(string: "https://air-quality.onedimension.net/sensors/\(sensorName)/measures/\(startTime)/\(endTime)/simple")!
+        let url = URL(string: "https://air-quality.onedimension.net/sensors/\(sensorName)/measures/\(startTime)/\(endTime)/full")!
 
         let (data, response) = try await URLSession.shared.data(from: url)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw FetchError.badRequest }
@@ -56,17 +58,21 @@ class SensorDataController: ObservableObject {
             temp.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: Int(data.tempF ?? 0.0), id: data.id))
             co2.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.co2 ?? 0, id: data.id))
             humidity.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.humidity ?? 0, id: data.id))
+            tvoc.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.tvocIndex ?? 0, id: data.id))
         }
 
         aqi.latestMetric = aqi.gradient.getIntermediateGradientPositionFromValue(value: aqi.dataPointCollection.getLatest().observation)
         co2.latestMetric = co2.gradient.getIntermediateGradientPositionFromValue(value: co2.dataPointCollection.getLatest().observation)
         temp.latestMetric = temp.gradient.getIntermediateGradientPositionFromValue(value: temp.dataPointCollection.getLatest().observation)
         humidity.latestMetric = humidity.gradient.getIntermediateGradientPositionFromValue(value: humidity.dataPointCollection.getLatest().observation)
+        tvoc.latestMetric = tvoc.gradient.getIntermediateGradientPositionFromValue(value: tvoc.dataPointCollection.getLatest().observation)
 
         aqi.gradient.computeGradient(maxValue: aqi.dataPointCollection.getMax())
         co2.gradient.computeGradient(maxValue: co2.dataPointCollection.getMax())
         temp.gradient.computeGradient(maxValue: temp.dataPointCollection.getMax())
         humidity.gradient.computeGradient(maxValue: humidity.dataPointCollection.getMax())
+        tvoc.gradient.computeGradient(maxValue: tvoc.dataPointCollection.getMax())
+        
 
         loading = false
     }
