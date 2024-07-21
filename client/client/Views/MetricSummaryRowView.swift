@@ -29,7 +29,7 @@ struct MetricSummaryRowView: View {
                 VStack(alignment: .leading) {
                     HStack {
                         Text("NOW").labelStyle()
-                        if sensorDataMetric.latestMetric != nil {
+                        if sensorDataMetric.latestMetric?.annotation != nil {
                             Text(sensorDataMetric.latestMetric?.annotation ?? "").tagStyle(color: sensorDataMetric.latestMetric?.annotationColor ?? Color.gray)
                         }
                     }

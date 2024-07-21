@@ -4,13 +4,13 @@ import SwiftUI
 struct GradientRange {
     var range: Range<Int>
     var color: Color
-    var annotation: String
+    var annotation: String?
 }
 
 struct IntermediateGradientPosition {
     var percentThroughGradient: Float
     var value: Int
-    var annotation: String
+    var annotation: String?
     var annotationColor: Color
 }
 
@@ -41,7 +41,7 @@ class GradientManager {
         return IntermediateGradientPosition(
             percentThroughGradient: p,
             value: value,
-            annotation: "?",
+            annotation: nil,
             annotationColor: Color.white
         )
     }
@@ -120,12 +120,12 @@ class AqiGradientManager: GradientManager {
 class TempGradientManager: GradientManager {
     init(maxValue: Int) {
         super.init(ranges: [
-            GradientRange(range: 0..<45, color: Color.blue, annotation: ""),
-            GradientRange(range: 45..<65, color: Color.teal, annotation: ""),
-            GradientRange(range: 65..<75, color: Color.green, annotation: ""),
-            GradientRange(range: 75..<85, color: Color.yellow, annotation: ""),
-            GradientRange(range: 85..<95, color: Color.orange, annotation: ""),
-            GradientRange(range: 95..<Int.max, color: Color.red, annotation: "HAZ")
+            GradientRange(range: 0..<45, color: Color.blue),
+            GradientRange(range: 45..<65, color: Color.teal),
+            GradientRange(range: 65..<75, color: Color.green),
+            GradientRange(range: 75..<85, color: Color.yellow),
+            GradientRange(range: 85..<95, color: Color.orange),
+            GradientRange(range: 95..<Int.max, color: Color.red)
         ], rangeMax: 95, maxValue: maxValue)
     }
 }
@@ -147,9 +147,9 @@ class Co2GradientManager: GradientManager {
 class HumidityGradientManager: GradientManager {
     init(maxValue: Int) {
         super.init(ranges: [
-            GradientRange(range: 0..<30, color: Color.yellow, annotation: ""),
-            GradientRange(range: 30..<80, color: Color.green, annotation: ""),
-            GradientRange(range: 80..<Int.max, color: Color.blue, annotation: "")
+            GradientRange(range: 0..<30, color: Color.yellow),
+            GradientRange(range: 30..<80, color: Color.green),
+            GradientRange(range: 80..<Int.max, color: Color.blue)
         ], rangeMax: 100, maxValue: maxValue)
     }
 }
