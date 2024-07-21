@@ -5,7 +5,7 @@ struct HeaderStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(size: 18, weight: .bold, design: .monospaced))
-            .foregroundColor(Color(UIColor.systemGray))
+            .foregroundColor(Color(UIColor.label))
             .textCase(/*@START_MENU_TOKEN@*/ .uppercase/*@END_MENU_TOKEN@*/)
     }
 }
@@ -14,7 +14,7 @@ struct SubHeaderStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(size: 18, weight: .regular, design: .monospaced))
-            .foregroundColor(Color(UIColor.systemGray2))
+            .foregroundColor(Color(UIColor.secondaryLabel))
     }
 }
 
@@ -36,7 +36,7 @@ struct LabelStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(size: 16, weight: .regular, design: .monospaced))
-            .foregroundColor(Color(UIColor.gray))
+            .foregroundColor(Color(UIColor.secondaryLabel))
             .textCase(.uppercase)
     }
 }
@@ -45,7 +45,7 @@ struct BigNumberStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(size: 28, weight: .regular, design: .monospaced))
-            .foregroundColor(Color(UIColor.white))
+            .foregroundColor(Color(UIColor.label))
             .frame(width: 90, alignment: .leading)
     }
 }

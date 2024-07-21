@@ -9,7 +9,6 @@ struct MetricSummaryRowView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            // AQI
             HStack(content: {
                 Text(metricName).headerStyle()
                 if metricMeasurementType != nil {
@@ -30,7 +29,7 @@ struct MetricSummaryRowView: View {
                     HStack {
                         Text("NOW").labelStyle()
                         if sensorDataMetric.latestMetric?.annotation != nil {
-                            Text(sensorDataMetric.latestMetric?.annotation ?? "").tagStyle(color: sensorDataMetric.latestMetric?.annotationColor ?? Color.gray)
+                            Text(sensorDataMetric.latestMetric?.annotation ?? "").tagStyle(color: sensorDataMetric.latestMetric?.annotationColor ?? Color(UIColor.gray))
                         }
                     }
                     Text("\(sensorDataMetric.latestMetric?.value ?? 0)").bigNumberStyle()
