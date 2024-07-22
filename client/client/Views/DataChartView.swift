@@ -3,7 +3,7 @@ import Foundation
 import SwiftUI
 
 struct DataChartView: View {
-    @Binding var sequenceData: [SensorDataPoint]
+    @Binding var dataPointCollection: SensorDataPointCollection
     @Binding var loading: Bool
     @Binding var lineLinearGradient: LinearGradient?
     @Binding var backgroundLinearGradient: LinearGradient?
@@ -14,7 +14,7 @@ struct DataChartView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
         else {
-            Chart(sequenceData) {
+            Chart(dataPointCollection.data) {
                 AreaMark(
                     x: .value("Time", $0.date),
                     y: .value("AQI", $0.observation)
@@ -31,7 +31,17 @@ struct DataChartView: View {
             }.frame(height: 62)
                 .chartXAxis(.hidden)
                 .chartYAxis {
-                    AxisMarks(position: .leading, values: .automatic(desiredCount: 3))
+                    AxisMarks(position: .leading, values: [dataPointCollection.getMin(), dataPointCollection.getMax()]) { value in
+                        AxisGridLine()
+                        AxisTick()
+                        AxisValueLabel {
+                            if let num = value.as(Int.self) {
+                                Text("\(num)")
+                                    .font(.system(size: 10, weight: .regular, design: .monospaced))
+                                    .offset(y: num == dataPointCollection.getMax() ? -5 : 5)
+                            }
+                        }
+                    }
                 }
         }
     }

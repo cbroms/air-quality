@@ -21,7 +21,7 @@ struct MetricSummaryRowView: View {
             })
             HStack(content: {
                 DataChartView(
-                    sequenceData: $sensorDataMetric.dataPointCollection.data,
+                    dataPointCollection: $sensorDataMetric.dataPointCollection,
                     loading: $loading,
                     lineLinearGradient: $sensorDataMetric.gradient.linearGradientMinToMax,
                     backgroundLinearGradient: $sensorDataMetric.gradient.linearGradientZeroToMax
@@ -46,7 +46,6 @@ struct MetricSummaryRowView: View {
                         }
                     }
                     Text("\(sensorDataMetric.last60MinMetric?.value ?? 0)").bigNumberStyle()
-
                 }
             })
         }
