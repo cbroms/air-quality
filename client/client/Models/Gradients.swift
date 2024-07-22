@@ -17,13 +17,17 @@ struct IntermediateGradientPosition {
 class GradientManager {
     var ranges: [GradientRange] = []
     var rangeMax: Int = 0
-    var linearGradient: LinearGradient?
+    var linearGradientZeroToMax: LinearGradient?
+    var linearGradientMinToMax: LinearGradient?
 
-    init(ranges: [GradientRange], rangeMax: Int, maxValue: Int) {
+    init(ranges: [GradientRange], rangeMax: Int) {
         self.ranges = ranges
         self.rangeMax = rangeMax
+    }
 
-        computeGradient(maxValue: maxValue)
+    func recomputeGradients(maxValue: Int, minValue: Int) {
+        linearGradientZeroToMax = computeGradient(maxValue: maxValue, minValue: 0, withOpacity: true)
+        linearGradientMinToMax = computeGradient(maxValue: maxValue, minValue: minValue, withOpacity: false)
     }
 
     func getIntermediateGradientPositionFromValue(value: Int) -> IntermediateGradientPosition {
@@ -46,7 +50,7 @@ class GradientManager {
         )
     }
 
-    func computeGradient(maxValue: Int) {
+    func computeGradient(maxValue: Int, minValue: Int, withOpacity: Bool) -> LinearGradient {
         // the base gradient is the full gradient from the minimum to max
         // specified in the GradientManager, for example 0-300 for AQI
         let baseGradientStops = ranges.map { range in
@@ -55,48 +59,65 @@ class GradientManager {
         let baseGradient = Gradient(stops: baseGradientStops)
 
         // now we filter down the gradient to only include the colors
-        // necessary to display the actual data range, like 0-153
+        // necessary to display the actual data range, like 45-153
         let maxP = getIntermediateGradientPositionFromValue(value: maxValue).percentThroughGradient
-        // reduce the range of the gradient to 0 -> max value
+        let minP = getIntermediateGradientPositionFromValue(value: minValue).percentThroughGradient
+        // reduce the range of the gradient to min value -> max value
         var partialGradientStops = baseGradient.stops.filter { stop in
-            stop.location >= 0 && stop.location <= CGFloat(maxP)
+            stop.location >= CGFloat(minP) && stop.location <= CGFloat(maxP)
         }
 
-        // if the partial gradient is between two values, find the intermediate
-        // color and add it to the end
-        if partialGradientStops.count < baseGradient.stops.count {
-            // find the range we're in
+        func getIntermediateGradientStopFromValue(value: Int) -> Gradient.Stop? {
             for (index, range) in ranges.enumerated() {
-                if range.range.contains(maxValue) {
-                    // get the color of the next range in the list (this range was filtered out)
-                    let nextColor = ranges[index + 1].color
-                    let nextThreshold = ranges[index + 1].range.lowerBound
-                    let previousThreshold = range.range.lowerBound
+                if range.range.contains(value) {
+                    let startColor = ranges[index].color
+                    let endColor = ranges[index + 1].color
+                    let startThreshold = ranges[index].range.lowerBound
+                    let endThreshold = ranges[index].range.upperBound
                     // what percentage of the way are we through the current range?
-                    let percentBetweenValues = Float(maxValue - previousThreshold) / Float(nextThreshold - previousThreshold)
+                    let percentBetweenValues = Float(value - startThreshold) / Float(endThreshold - startThreshold)
                     // create an interpolated color between the current and next colors
-                    let interpolatedColor = UIColor(range.color).interpolateRGBColorTo(end: UIColor(nextColor), fraction: CGFloat(percentBetweenValues))
+                    let interpolatedColor = UIColor(startColor).interpolateRGBColorTo(end: UIColor(endColor), fraction: CGFloat(percentBetweenValues))
                     // calculate the max value's location; this is the location to place the stop with the new color
-                    let stopLocation = getIntermediateGradientPositionFromValue(value: maxValue).percentThroughGradient
-                    // now add as the last stop
-                    partialGradientStops.append(Gradient.Stop(color: Color(interpolatedColor), location: CGFloat(stopLocation)))
+                    // note that this position is relative to the base gradient
+                    let stopLocation = getIntermediateGradientPositionFromValue(value: value).percentThroughGradient
+
+                    return Gradient.Stop(color: Color(interpolatedColor), location: CGFloat(stopLocation))
                 }
             }
+            return nil
+        }
+
+        // generate the stop for the max and min points
+        let startStop = getIntermediateGradientStopFromValue(value: minValue)
+        let endStop = getIntermediateGradientStopFromValue(value: maxValue)
+
+        // add the partial stops
+        partialGradientStops.append(endStop!)
+        if minValue != 0 {
+            partialGradientStops.insert(startStop!, at: 0)
         }
 
         // adjust the stop percentages to the new range
         func remapStop(stop: Gradient.Stop) -> Gradient.Stop {
-            let currentStopLoc = stop.location
-            let adjustedStopLoc = currentStopLoc / CGFloat(maxP)
-            // calculate the opacity as the adjusted location
+            // round to .00 to prevent weirdness when remapping
+            let currentStopLoc = round(stop.location * 100) / 100.0
+            var adjustedStopLoc = currentStopLoc / CGFloat(maxP)
+            if minP > 0 {
+                // if the minimum is not zero, we need shift up by the new min
+                adjustedStopLoc = (currentStopLoc - CGFloat(minP)) / (CGFloat(maxP) - CGFloat(minP))
+            }
             var newColor = stop.color
-            newColor = newColor.opacity(Double(adjustedStopLoc))
+            if withOpacity {
+                // calculate the opacity as the adjusted location (will be 0 -> 1)
+                newColor = newColor.opacity(Double(adjustedStopLoc) - 0.33)
+            }
             return Gradient.Stop(color: newColor, location: CGFloat(adjustedStopLoc))
         }
         partialGradientStops = partialGradientStops.map(remapStop)
         // finally create the adjusted gradient
         let partialGradient = Gradient(stops: partialGradientStops)
-        linearGradient = LinearGradient(
+        return LinearGradient(
             gradient: partialGradient,
             startPoint: .bottom,
             endPoint: .top
@@ -105,7 +126,7 @@ class GradientManager {
 }
 
 class AqiGradientManager: GradientManager {
-    init(maxValue: Int) {
+    init() {
         super.init(ranges: [
             GradientRange(range: 0..<51, color: Color.green, annotation: "LO"),
             GradientRange(range: 51..<101, color: Color.yellow, annotation: "MOD"),
@@ -113,12 +134,12 @@ class AqiGradientManager: GradientManager {
             GradientRange(range: 151..<201, color: Color.red, annotation: "UN"),
             GradientRange(range: 201..<300, color: Color.purple, annotation: "VUN"),
             GradientRange(range: 300..<Int.max, color: Color.indigo, annotation: "HAZ")
-        ], rangeMax: 300, maxValue: maxValue)
+        ], rangeMax: 300)
     }
 }
 
 class TempGradientManager: GradientManager {
-    init(maxValue: Int) {
+    init() {
         super.init(ranges: [
             GradientRange(range: 0..<45, color: Color.blue),
             GradientRange(range: 45..<65, color: Color.teal),
@@ -126,12 +147,12 @@ class TempGradientManager: GradientManager {
             GradientRange(range: 75..<85, color: Color.yellow),
             GradientRange(range: 85..<95, color: Color.orange),
             GradientRange(range: 95..<Int.max, color: Color.red)
-        ], rangeMax: 95, maxValue: maxValue)
+        ], rangeMax: 95)
     }
 }
 
 class Co2GradientManager: GradientManager {
-    init(maxValue: Int) {
+    init() {
         super.init(ranges: [
             GradientRange(range: 0..<400, color: Color.green, annotation: "LO"),
             GradientRange(range: 400..<701, color: Color.green, annotation: "LO"),
@@ -140,22 +161,23 @@ class Co2GradientManager: GradientManager {
             GradientRange(range: 1601..<2001, color: Color.red, annotation: "UN"),
             GradientRange(range: 2001..<2500, color: Color.purple, annotation: "VUN"),
             GradientRange(range: 2500..<Int.max, color: Color.indigo, annotation: "HAZ")
-        ], rangeMax: 2500, maxValue: maxValue)
+        ], rangeMax: 2500)
     }
 }
 
 class HumidityGradientManager: GradientManager {
-    init(maxValue: Int) {
+    init() {
         super.init(ranges: [
-            GradientRange(range: 0..<30, color: Color.yellow),
-            GradientRange(range: 30..<80, color: Color.green),
-            GradientRange(range: 80..<Int.max, color: Color.blue)
-        ], rangeMax: 100, maxValue: maxValue)
+            GradientRange(range: 0..<20, color: Color.red),
+            GradientRange(range: 20..<40, color: Color.yellow),
+            GradientRange(range: 40..<60, color: Color.green),
+            GradientRange(range: 60..<Int.max, color: Color.blue)
+        ], rangeMax: 100)
     }
 }
 
 class TvocGradientManager: GradientManager {
-    init(maxValue: Int) {
+    init() {
         super.init(ranges: [
             GradientRange(range: 0..<221, color: Color.green, annotation: "LO"),
             GradientRange(range: 221..<661, color: Color.yellow, annotation: "MOD"),
@@ -163,6 +185,6 @@ class TvocGradientManager: GradientManager {
             GradientRange(range: 1431..<2201, color: Color.red, annotation: "UN"),
             GradientRange(range: 2201..<3300, color: Color.purple, annotation: "VUN"),
             GradientRange(range: 3300..<Int.max, color: Color.indigo, annotation: "HAZ")
-        ], rangeMax: 3300, maxValue: maxValue)
+        ], rangeMax: 3300)
     }
 }

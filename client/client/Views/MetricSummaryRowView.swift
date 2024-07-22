@@ -23,7 +23,10 @@ struct MetricSummaryRowView: View {
                 DataChartView(
                     sequenceData: $sensorDataMetric.dataPointCollection.data,
                     loading: $loading,
-                    gradient: $sensorDataMetric.gradient.linearGradient)
+                    lineLinearGradient: $sensorDataMetric.gradient.linearGradientMinToMax,
+                    backgroundLinearGradient: $sensorDataMetric.gradient.linearGradientZeroToMax
+                )
+
                 Spacer()
                 VStack(alignment: .leading) {
                     HStack {
