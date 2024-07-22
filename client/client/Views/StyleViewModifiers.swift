@@ -1,11 +1,20 @@
 import Foundation
 import SwiftUI
 
+
+struct TitleStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 28, weight: .bold, design: .monospaced))
+            .foregroundColor(Color(UIColor.label))
+            .textCase( .uppercase)
+    }
+}
 struct HeaderStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(size: 18, weight: .bold, design: .monospaced))
-            .foregroundColor(Color(UIColor.label))
+            .foregroundColor(Color(UIColor.secondaryLabel))
             .textCase(/*@START_MENU_TOKEN@*/ .uppercase/*@END_MENU_TOKEN@*/)
     }
 }
@@ -14,7 +23,7 @@ struct SubHeaderStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(size: 18, weight: .regular, design: .monospaced))
-            .foregroundColor(Color(UIColor.secondaryLabel))
+            .foregroundColor(Color(UIColor.tertiaryLabel))
     }
 }
 
@@ -44,13 +53,17 @@ struct LabelStyle: ViewModifier {
 struct BigNumberStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.system(size: 28, weight: .regular, design: .monospaced))
+            .font(.system(size: 26, weight: .regular, design: .monospaced))
             .foregroundColor(Color(UIColor.label))
-            .frame(width: 90, alignment: .leading)
+            .frame(width: 81, alignment: .leading)
     }
 }
 
 extension View {
+    func titleStyle() -> some View {
+        modifier(TitleStyle())
+    }
+    
     func headerStyle() -> some View {
         modifier(HeaderStyle())
     }

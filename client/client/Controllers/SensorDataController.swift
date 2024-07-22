@@ -12,6 +12,11 @@ struct SensorDataPointCollection {
         return data.min { a, b in a.observation < b.observation }?.observation ?? 0
     }
 
+    func getAvg() -> Int {
+        var sum = data.reduce(0) { sum, a in a.observation + sum }
+        return sum / data.count
+    }
+
     func getLatest() -> SensorDataPoint {
         return data.last!
     }
@@ -21,6 +26,13 @@ struct SensorDataMetric {
     var dataPointCollection = SensorDataPointCollection()
     var gradient: GradientManager
     var latestMetric: IntermediateGradientPosition?
+    var last60MinMetric: IntermediateGradientPosition?
+
+    mutating func refreshMetrics() {
+        gradient.recomputeGradients(maxValue: dataPointCollection.getMax(), minValue: dataPointCollection.getMin())
+        latestMetric = gradient.getIntermediateGradientPositionFromValue(value: dataPointCollection.getLatest().observation)
+        last60MinMetric = gradient.getIntermediateGradientPositionFromValue(value: dataPointCollection.getAvg())
+    }
 }
 
 class SensorDataController: ObservableObject {
@@ -63,18 +75,12 @@ class SensorDataController: ObservableObject {
             humidity.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.humidity ?? 0, id: data.id))
             tvoc.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.tvocIndex ?? 0, id: data.id))
         }
-        
-        aqi.latestMetric = aqi.gradient.getIntermediateGradientPositionFromValue(value: aqi.dataPointCollection.getLatest().observation)
-        co2.latestMetric = co2.gradient.getIntermediateGradientPositionFromValue(value: co2.dataPointCollection.getLatest().observation)
-        temp.latestMetric = temp.gradient.getIntermediateGradientPositionFromValue(value: temp.dataPointCollection.getLatest().observation)
-        humidity.latestMetric = humidity.gradient.getIntermediateGradientPositionFromValue(value: humidity.dataPointCollection.getLatest().observation)
-        tvoc.latestMetric = tvoc.gradient.getIntermediateGradientPositionFromValue(value: tvoc.dataPointCollection.getLatest().observation)
 
-        aqi.gradient.recomputeGradients(maxValue: aqi.dataPointCollection.getMax(), minValue: aqi.dataPointCollection.getMin())
-        co2.gradient.recomputeGradients(maxValue: co2.dataPointCollection.getMax(), minValue: co2.dataPointCollection.getMin())
-        temp.gradient.recomputeGradients(maxValue: temp.dataPointCollection.getMax(), minValue: temp.dataPointCollection.getMin())
-        humidity.gradient.recomputeGradients(maxValue: humidity.dataPointCollection.getMax(), minValue: humidity.dataPointCollection.getMin())
-        tvoc.gradient.recomputeGradients(maxValue: tvoc.dataPointCollection.getMax(), minValue: tvoc.dataPointCollection.getMin())
+        aqi.refreshMetrics()
+        temp.refreshMetrics()
+        co2.refreshMetrics()
+        humidity.refreshMetrics()
+        tvoc.refreshMetrics()
 
         loading = false
     }

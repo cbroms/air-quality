@@ -16,7 +16,7 @@ struct MetricSummaryRowView: View {
                 }
                 Rectangle()
                     .frame(height: 1)
-                    .foregroundColor(Color(UIColor.systemGray2))
+                    .foregroundColor(Color(UIColor.systemGray3))
                     .padding(.vertical)
             })
             HStack(content: {
@@ -25,7 +25,7 @@ struct MetricSummaryRowView: View {
                     loading: $loading,
                     lineLinearGradient: $sensorDataMetric.gradient.linearGradientMinToMax,
                     backgroundLinearGradient: $sensorDataMetric.gradient.linearGradientZeroToMax
-                )
+                ).padding(.trailing)
 
                 Spacer()
                 VStack(alignment: .leading) {
@@ -37,7 +37,17 @@ struct MetricSummaryRowView: View {
                     }
                     Text("\(sensorDataMetric.latestMetric?.value ?? 0)").bigNumberStyle()
 
-                }.padding(.horizontal)
+                }.padding(.trailing)
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("1HR").labelStyle()
+                        if sensorDataMetric.last60MinMetric?.annotation != nil {
+                            Text(sensorDataMetric.last60MinMetric?.annotation ?? "").tagStyle(color: sensorDataMetric.last60MinMetric?.annotationColor ?? Color(UIColor.gray))
+                        }
+                    }
+                    Text("\(sensorDataMetric.last60MinMetric?.value ?? 0)").bigNumberStyle()
+
+                }
             })
         }
     }

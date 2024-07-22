@@ -128,12 +128,12 @@ class GradientManager {
 class AqiGradientManager: GradientManager {
     init() {
         super.init(ranges: [
-            GradientRange(range: 0..<51, color: Color.green, annotation: "LO"),
-            GradientRange(range: 51..<101, color: Color.yellow, annotation: "MOD"),
-            GradientRange(range: 101..<151, color: Color.orange, annotation: "HI"),
-            GradientRange(range: 151..<201, color: Color.red, annotation: "UN"),
-            GradientRange(range: 201..<300, color: Color.purple, annotation: "VUN"),
-            GradientRange(range: 300..<Int.max, color: Color.indigo, annotation: "HAZ")
+            GradientRange(range: 0..<50, color: Color(UIColor.systemGreen), annotation: "LO"),
+            GradientRange(range: 50..<100, color: Color(UIColor.systemYellow), annotation: "MOD"),
+            GradientRange(range: 100..<150, color: Color(UIColor.systemOrange), annotation: "HI"),
+            GradientRange(range: 150..<200, color: Color(UIColor.systemRed), annotation: "UN"),
+            GradientRange(range: 200..<300, color: Color(UIColor.systemPurple), annotation: "VUN"),
+            GradientRange(range: 300..<Int.max, color: Color(UIColor.systemIndigo), annotation: "HAZ")
         ], rangeMax: 300)
     }
 }
@@ -141,12 +141,12 @@ class AqiGradientManager: GradientManager {
 class TempGradientManager: GradientManager {
     init() {
         super.init(ranges: [
-            GradientRange(range: 0..<45, color: Color.blue),
-            GradientRange(range: 45..<65, color: Color.teal),
-            GradientRange(range: 65..<75, color: Color.green),
-            GradientRange(range: 75..<85, color: Color.yellow),
-            GradientRange(range: 85..<95, color: Color.orange),
-            GradientRange(range: 95..<Int.max, color: Color.red)
+            GradientRange(range: 0..<45, color: Color(UIColor.systemBlue)),
+            GradientRange(range: 45..<65, color: Color(UIColor.systemTeal)),
+            GradientRange(range: 65..<75, color: Color(UIColor.systemGreen)),
+            GradientRange(range: 75..<85, color: Color(UIColor.systemYellow)),
+            GradientRange(range: 85..<95, color: Color(UIColor.systemOrange)),
+            GradientRange(range: 95..<Int.max, color: Color(UIColor.systemRed))
         ], rangeMax: 95)
     }
 }
@@ -154,13 +154,13 @@ class TempGradientManager: GradientManager {
 class Co2GradientManager: GradientManager {
     init() {
         super.init(ranges: [
-            GradientRange(range: 0..<400, color: Color.green, annotation: "LO"),
-            GradientRange(range: 400..<701, color: Color.green, annotation: "LO"),
-            GradientRange(range: 701..<1201, color: Color.yellow, annotation: "MOD"),
-            GradientRange(range: 1201..<1601, color: Color.orange, annotation: "HI"),
-            GradientRange(range: 1601..<2001, color: Color.red, annotation: "UN"),
-            GradientRange(range: 2001..<2500, color: Color.purple, annotation: "VUN"),
-            GradientRange(range: 2500..<Int.max, color: Color.indigo, annotation: "HAZ")
+            GradientRange(range: 0..<400, color: Color(UIColor.systemGreen), annotation: "LO"),
+            GradientRange(range: 400..<700, color: Color(UIColor.systemGreen), annotation: "LO"),
+            GradientRange(range: 700..<1200, color: Color(UIColor.systemYellow), annotation: "MOD"),
+            GradientRange(range: 1200..<1600, color: Color(UIColor.systemOrange), annotation: "HI"),
+            GradientRange(range: 1600..<2000, color: Color(UIColor.systemRed), annotation: "UN"),
+            GradientRange(range: 2000..<2500, color: Color(UIColor.systemPurple), annotation: "VUN"),
+            GradientRange(range: 2500..<Int.max, color: Color(UIColor.systemIndigo), annotation: "HAZ")
         ], rangeMax: 2500)
     }
 }
@@ -168,10 +168,10 @@ class Co2GradientManager: GradientManager {
 class HumidityGradientManager: GradientManager {
     init() {
         super.init(ranges: [
-            GradientRange(range: 0..<20, color: Color.red),
-            GradientRange(range: 20..<40, color: Color.yellow),
-            GradientRange(range: 40..<60, color: Color.green),
-            GradientRange(range: 60..<Int.max, color: Color.blue)
+            GradientRange(range: 0..<20, color: Color(UIColor.systemRed)),
+            GradientRange(range: 30..<50, color: Color(UIColor.systemYellow)),
+            GradientRange(range: 50..<60, color: Color(UIColor.systemGreen)),
+            GradientRange(range: 60..<Int.max, color: Color(UIColor.systemBlue))
         ], rangeMax: 100)
     }
 }
@@ -179,12 +179,12 @@ class HumidityGradientManager: GradientManager {
 class TvocGradientManager: GradientManager {
     init() {
         super.init(ranges: [
-            GradientRange(range: 0..<221, color: Color.green, annotation: "LO"),
-            GradientRange(range: 221..<661, color: Color.yellow, annotation: "MOD"),
-            GradientRange(range: 661..<1431, color: Color.orange, annotation: "HI"),
-            GradientRange(range: 1431..<2201, color: Color.red, annotation: "UN"),
-            GradientRange(range: 2201..<3300, color: Color.purple, annotation: "VUN"),
-            GradientRange(range: 3300..<Int.max, color: Color.indigo, annotation: "HAZ")
+            GradientRange(range: 0..<220, color: Color(UIColor.systemGreen), annotation: "LO"),
+            GradientRange(range: 220..<660, color: Color(UIColor.systemYellow), annotation: "MOD"),
+            GradientRange(range: 660..<1430, color: Color(UIColor.systemOrange), annotation: "HI"),
+            GradientRange(range: 1430..<2200, color: Color(UIColor.systemRed), annotation: "UN"),
+            GradientRange(range: 2200..<3300, color: Color(UIColor.systemPurple), annotation: "VUN"),
+            GradientRange(range: 3300..<Int.max, color: Color(UIColor.systemIndigo), annotation: "HAZ")
         ], rangeMax: 3300)
     }
 }

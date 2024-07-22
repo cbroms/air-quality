@@ -6,6 +6,11 @@ struct AllDataChartsViewSmall: View, Sendable {
 
     var body: some View {
         ScrollView {
+            HStack {
+                Text("Home").titleStyle()
+                Spacer()
+                Text("\(Image(systemName: "location.fill")) Bend, ORE").labelStyle()
+            }
             MetricSummaryRowView(
                 sensorDataMetric: $sensorDataController.aqi,
                 loading: $sensorDataController.loading,
