@@ -17,4 +17,8 @@ struct SensorDataPointCollection {
     func getLatest() -> SensorDataPoint {
         return data.last!
     }
+
+    mutating func reset() {
+        data.removeAll()
+    }
 }
