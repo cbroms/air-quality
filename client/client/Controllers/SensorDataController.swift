@@ -4,12 +4,15 @@ import Foundation
 struct SensorDataMetric {
     var dataPointCollection: SensorDataPointCollection
     var gradient: GradientManager
+    var latestUpdateTime: Date?
     var latestMetric: IntermediateGradientPosition?
     var last60MinMetric: IntermediateGradientPosition?
 
     mutating func refreshMetrics() {
         gradient.recomputeGradients(maxValue: dataPointCollection.getMax(), minValue: dataPointCollection.getMin())
-        latestMetric = gradient.getIntermediateGradientPositionFromValue(value: dataPointCollection.getLatest().observation)
+        var latest = dataPointCollection.getLatest()
+        latestMetric = gradient.getIntermediateGradientPositionFromValue(value: latest.observation)
+        latestUpdateTime = latest.date
         last60MinMetric = gradient.getIntermediateGradientPositionFromValue(value: dataPointCollection.getAvg())
     }
 }

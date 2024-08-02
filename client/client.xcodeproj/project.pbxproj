@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		850FFC982C5C697100888568 /* SensorDataPointCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850FFC972C5C697100888568 /* SensorDataPointCollection.swift */; };
+		850FFC9A2C5C93FB00888568 /* TimeSinceLastUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850FFC992C5C93FB00888568 /* TimeSinceLastUpdateView.swift */; };
 		851168D62C1A8F0500B0591C /* DataChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851168D52C1A8F0500B0591C /* DataChartView.swift */; };
 		857B18F92C35C0C600350EC3 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857B18F82C35C0C600350EC3 /* Gradients.swift */; };
 		857B18FB2C36467F00350EC3 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857B18FA2C36467F00350EC3 /* Color.swift */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		850FFC942C5C66B300888568 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		850FFC972C5C697100888568 /* SensorDataPointCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDataPointCollection.swift; sourceTree = "<group>"; };
+		850FFC992C5C93FB00888568 /* TimeSinceLastUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSinceLastUpdateView.swift; sourceTree = "<group>"; };
 		851168D52C1A8F0500B0591C /* DataChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataChartView.swift; sourceTree = "<group>"; };
 		857B18F82C35C0C600350EC3 /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
 		857B18FA2C36467F00350EC3 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				857B18FC2C38CBC600350EC3 /* AllDataChartsViewSmall.swift */,
 				857B19062C38D97400350EC3 /* StyleViewModifiers.swift */,
 				857B19082C38EA2700350EC3 /* MetricSummaryRowView.swift */,
+				850FFC992C5C93FB00888568 /* TimeSinceLastUpdateView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				850FFC9A2C5C93FB00888568 /* TimeSinceLastUpdateView.swift in Sources */,
 				857B19092C38EA2700350EC3 /* MetricSummaryRowView.swift in Sources */,
 				851168D62C1A8F0500B0591C /* DataChartView.swift in Sources */,
 				85B1EF5F2BEB011600BE1E07 /* SensorData.swift in Sources */,
@@ -344,7 +348,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rainflame.air-quality-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -375,7 +379,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rainflame.air-quality-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

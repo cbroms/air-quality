@@ -5,11 +5,12 @@ struct AllDataChartsViewSmall: View, Sendable {
     @EnvironmentObject var sensorDataController: SensorDataController
 
     var body: some View {
-        HStack {
+        HStack(alignment: .lastTextBaseline, content: {
             Text("Home").titleStyle()
+            TimeSinceLastUpdateView(lastUpdateTime: $sensorDataController.aqi.latestUpdateTime)
             Spacer()
             Text("Bend, OR").labelStyle()
-        }.padding(.horizontal)
+        }).padding(.horizontal)
         List {
             MetricSummaryRowView(
                 sensorDataMetric: $sensorDataController.aqi,
