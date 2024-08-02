@@ -1,27 +1,6 @@
 
 import Foundation
 
-struct SensorDataPointCollection {
-    var data: [SensorDataPoint] = []
-
-    func getMax() -> Int {
-        return data.max { a, b in a.observation < b.observation }?.observation ?? 0
-    }
-
-    func getMin() -> Int {
-        return data.min { a, b in a.observation < b.observation }?.observation ?? 0
-    }
-
-    func getAvg() -> Int {
-        var sum = data.reduce(0) { sum, a in a.observation + sum }
-        return sum / data.count
-    }
-
-    func getLatest() -> SensorDataPoint {
-        return data.last!
-    }
-}
-
 struct SensorDataMetric {
     var dataPointCollection = SensorDataPointCollection()
     var gradient: GradientManager
@@ -36,6 +15,8 @@ struct SensorDataMetric {
 }
 
 class SensorDataController: ObservableObject {
+    static let shared = SensorDataController()
+
     @Published var sensorData: [SensorData] = []
     @Published var loading = true
 
@@ -68,20 +49,22 @@ class SensorDataController: ObservableObject {
 
         sensorData = try JSONDecoder().decode([SensorData].self, from: data)
 
-        for data in sensorData {
-            aqi.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.aqi ?? 0, id: data.id))
-            temp.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: Int(data.tempF ?? 0.0), id: data.id))
-            co2.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.co2 ?? 0, id: data.id))
-            humidity.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.humidity ?? 0, id: data.id))
-            tvoc.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.tvocIndex ?? 0, id: data.id))
+        DispatchQueue.main.async {
+            for data in self.sensorData {
+                self.aqi.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.aqi ?? 0, id: data.id))
+                self.temp.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: Int(data.tempF ?? 0.0), id: data.id))
+                self.co2.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.co2 ?? 0, id: data.id))
+                self.humidity.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.humidity ?? 0, id: data.id))
+                self.tvoc.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.tvocIndex ?? 0, id: data.id))
+            }
+
+            self.aqi.refreshMetrics()
+            self.temp.refreshMetrics()
+            self.co2.refreshMetrics()
+            self.humidity.refreshMetrics()
+            self.tvoc.refreshMetrics()
+
+            self.loading = false
         }
-
-        aqi.refreshMetrics()
-        temp.refreshMetrics()
-        co2.refreshMetrics()
-        humidity.refreshMetrics()
-        tvoc.refreshMetrics()
-
-        loading = false
     }
 }

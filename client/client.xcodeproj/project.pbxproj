@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		850FFC982C5C697100888568 /* SensorDataPointCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850FFC972C5C697100888568 /* SensorDataPointCollection.swift */; };
 		851168D62C1A8F0500B0591C /* DataChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851168D52C1A8F0500B0591C /* DataChartView.swift */; };
 		857B18F92C35C0C600350EC3 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857B18F82C35C0C600350EC3 /* Gradients.swift */; };
 		857B18FB2C36467F00350EC3 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857B18FA2C36467F00350EC3 /* Color.swift */; };
@@ -21,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		850FFC942C5C66B300888568 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		850FFC972C5C697100888568 /* SensorDataPointCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDataPointCollection.swift; sourceTree = "<group>"; };
 		851168D52C1A8F0500B0591C /* DataChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataChartView.swift; sourceTree = "<group>"; };
 		857B18F82C35C0C600350EC3 /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
 		857B18FA2C36467F00350EC3 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -65,6 +68,7 @@
 		859A27582BE9DEBC00390EDA /* client */ = {
 			isa = PBXGroup;
 			children = (
+				850FFC942C5C66B300888568 /* Info.plist */,
 				85B1EF612BEB028300BE1E07 /* Views */,
 				85B1EF602BEB027700BE1E07 /* Controllers */,
 				85B1EF5B2BEB00DE00BE1E07 /* Models */,
@@ -89,6 +93,7 @@
 				85B1EF5E2BEB011600BE1E07 /* SensorData.swift */,
 				857B18F82C35C0C600350EC3 /* Gradients.swift */,
 				857B18FA2C36467F00350EC3 /* Color.swift */,
+				850FFC972C5C697100888568 /* SensorDataPointCollection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -187,6 +192,7 @@
 				85B1EF5F2BEB011600BE1E07 /* SensorData.swift in Sources */,
 				857B18FB2C36467F00350EC3 /* Color.swift in Sources */,
 				857B19072C38D97400350EC3 /* StyleViewModifiers.swift in Sources */,
+				850FFC982C5C697100888568 /* SensorDataPointCollection.swift in Sources */,
 				85A1676E2BEB2BDB00E97940 /* AirQualityApp.swift in Sources */,
 				85A167702BEB311000E97940 /* SensorDataController.swift in Sources */,
 				857B18F92C35C0C600350EC3 /* Gradients.swift in Sources */,
@@ -327,6 +333,8 @@
 				DEVELOPMENT_TEAM = W4S2S3A76K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = client/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Rainflame AQI";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -336,7 +344,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rainflame.air-quality-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -356,6 +364,8 @@
 				DEVELOPMENT_TEAM = W4S2S3A76K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = client/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Rainflame AQI";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -365,7 +375,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rainflame.air-quality-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
