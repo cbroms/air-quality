@@ -10,7 +10,7 @@ struct SensorDataMetric {
 
     mutating func refreshMetrics() {
         gradient.recomputeGradients(maxValue: dataPointCollection.getMax(), minValue: dataPointCollection.getMin())
-        var latest = dataPointCollection.getLatest()
+        let latest = dataPointCollection.getLatest()
         latestMetric = gradient.getIntermediateGradientPositionFromValue(value: latest.observation)
         latestUpdateTime = latest.date
         last60MinMetric = gradient.getIntermediateGradientPositionFromValue(value: dataPointCollection.getAvg())
@@ -20,7 +20,6 @@ struct SensorDataMetric {
 @MainActor class SensorDataController: ObservableObject {
     static let shared = SensorDataController()
 
-    @Published var sensorData: [SensorData] = []
     @Published var loading = true
 
     @Published var aqi = SensorDataMetric(dataPointCollection: SensorDataPointCollection(), gradient: AqiGradientManager())
@@ -33,6 +32,7 @@ struct SensorDataMetric {
 
     enum FetchError: Error {
         case badRequest
+        case badResponse
         case badJSON
     }
 
@@ -48,10 +48,10 @@ struct SensorDataMetric {
 
         let url = URL(string: "https://air-quality.onedimension.net/sensors/\(sensorName)/measures/\(startTime)/\(endTime)/full")!
 
-        let (data, response) = try await URLSession.shared.data(from: url)
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw FetchError.badRequest }
+        guard let (data, response) = try? await URLSession.shared.data(from: url) else { throw FetchError.badRequest }
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw FetchError.badResponse }
 
-        sensorData = try JSONDecoder().decode([SensorData].self, from: data)
+        guard let sensorData = try? JSONDecoder().decode([SensorData].self, from: data) else { throw FetchError.badJSON }
 
         // remove any existing data
         aqi.dataPointCollection.reset()
