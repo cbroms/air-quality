@@ -17,9 +17,3 @@ struct SensorData: Codable, Identifiable {
         return dateFormatter.date(from: time) ?? Date()
     }
 }
-
-struct SensorDataPoint: Codable, Identifiable {
-    var date: Date
-    var observation: Int
-    var id: String
-}

@@ -1,5 +1,5 @@
-struct SensorDataPointCollection {
-    var data: [SensorDataPoint] = []
+struct DataPointCollection {
+    var data: [DataPoint] = []
 
     func getMax() -> Int {
         return data.max { a, b in a.observation < b.observation }?.observation ?? 0
@@ -11,11 +11,14 @@ struct SensorDataPointCollection {
 
     func getAvg() -> Int {
         let sum = data.reduce(0) { sum, a in a.observation + sum }
+        if data.count == 0 {
+            return 0
+        }
         return sum / data.count
     }
 
-    func getLatest() -> SensorDataPoint {
-        return data.last!
+    func getLatest() -> DataPoint? {
+        return data.last
     }
 
     mutating func reset() {

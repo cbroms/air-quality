@@ -7,8 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		850FFC982C5C697100888568 /* SensorDataPointCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850FFC972C5C697100888568 /* SensorDataPointCollection.swift */; };
+		850FFC982C5C697100888568 /* DataPointCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850FFC972C5C697100888568 /* DataPointCollection.swift */; };
 		850FFC9A2C5C93FB00888568 /* TimeSinceLastUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850FFC992C5C93FB00888568 /* TimeSinceLastUpdateView.swift */; };
+		850FFC9C2C60217A00888568 /* PurpleAirDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850FFC9B2C60217A00888568 /* PurpleAirDataController.swift */; };
+		850FFC9E2C60226900888568 /* PurpleAirData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850FFC9D2C60226900888568 /* PurpleAirData.swift */; };
+		850FFCA42C60263A00888568 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850FFCA32C60263A00888568 /* Location.swift */; };
+		850FFCA62C604D5500888568 /* DataMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850FFCA52C604D5500888568 /* DataMetric.swift */; };
+		850FFCA82C604E8B00888568 /* DataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850FFCA72C604E8B00888568 /* DataPoint.swift */; };
+		850FFCAB2C60812200888568 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 850FFCAA2C60812200888568 /* Keys.plist */; };
 		851168D62C1A8F0500B0591C /* DataChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851168D52C1A8F0500B0591C /* DataChartView.swift */; };
 		857B18F92C35C0C600350EC3 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857B18F82C35C0C600350EC3 /* Gradients.swift */; };
 		857B18FB2C36467F00350EC3 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857B18FA2C36467F00350EC3 /* Color.swift */; };
@@ -24,8 +30,14 @@
 
 /* Begin PBXFileReference section */
 		850FFC942C5C66B300888568 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		850FFC972C5C697100888568 /* SensorDataPointCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDataPointCollection.swift; sourceTree = "<group>"; };
+		850FFC972C5C697100888568 /* DataPointCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPointCollection.swift; sourceTree = "<group>"; };
 		850FFC992C5C93FB00888568 /* TimeSinceLastUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSinceLastUpdateView.swift; sourceTree = "<group>"; };
+		850FFC9B2C60217A00888568 /* PurpleAirDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleAirDataController.swift; sourceTree = "<group>"; };
+		850FFC9D2C60226900888568 /* PurpleAirData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleAirData.swift; sourceTree = "<group>"; };
+		850FFCA32C60263A00888568 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		850FFCA52C604D5500888568 /* DataMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMetric.swift; sourceTree = "<group>"; };
+		850FFCA72C604E8B00888568 /* DataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPoint.swift; sourceTree = "<group>"; };
+		850FFCAA2C60812200888568 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		851168D52C1A8F0500B0591C /* DataChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataChartView.swift; sourceTree = "<group>"; };
 		857B18F82C35C0C600350EC3 /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
 		857B18FA2C36467F00350EC3 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -70,6 +82,7 @@
 		859A27582BE9DEBC00390EDA /* client */ = {
 			isa = PBXGroup;
 			children = (
+				850FFCAA2C60812200888568 /* Keys.plist */,
 				850FFC942C5C66B300888568 /* Info.plist */,
 				85B1EF612BEB028300BE1E07 /* Views */,
 				85B1EF602BEB027700BE1E07 /* Controllers */,
@@ -95,7 +108,11 @@
 				85B1EF5E2BEB011600BE1E07 /* SensorData.swift */,
 				857B18F82C35C0C600350EC3 /* Gradients.swift */,
 				857B18FA2C36467F00350EC3 /* Color.swift */,
-				850FFC972C5C697100888568 /* SensorDataPointCollection.swift */,
+				850FFC972C5C697100888568 /* DataPointCollection.swift */,
+				850FFC9D2C60226900888568 /* PurpleAirData.swift */,
+				850FFCA32C60263A00888568 /* Location.swift */,
+				850FFCA52C604D5500888568 /* DataMetric.swift */,
+				850FFCA72C604E8B00888568 /* DataPoint.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -104,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				85A1676F2BEB311000E97940 /* SensorDataController.swift */,
+				850FFC9B2C60217A00888568 /* PurpleAirDataController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -178,6 +196,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				850FFCAB2C60812200888568 /* Keys.plist in Resources */,
 				859A27632BE9DEBD00390EDA /* Preview Assets.xcassets in Resources */,
 				859A27602BE9DEBD00390EDA /* Assets.xcassets in Resources */,
 			);
@@ -196,10 +215,15 @@
 				85B1EF5F2BEB011600BE1E07 /* SensorData.swift in Sources */,
 				857B18FB2C36467F00350EC3 /* Color.swift in Sources */,
 				857B19072C38D97400350EC3 /* StyleViewModifiers.swift in Sources */,
-				850FFC982C5C697100888568 /* SensorDataPointCollection.swift in Sources */,
+				850FFC982C5C697100888568 /* DataPointCollection.swift in Sources */,
+				850FFCA42C60263A00888568 /* Location.swift in Sources */,
+				850FFCA62C604D5500888568 /* DataMetric.swift in Sources */,
+				850FFC9E2C60226900888568 /* PurpleAirData.swift in Sources */,
 				85A1676E2BEB2BDB00E97940 /* AirQualityApp.swift in Sources */,
 				85A167702BEB311000E97940 /* SensorDataController.swift in Sources */,
 				857B18F92C35C0C600350EC3 /* Gradients.swift in Sources */,
+				850FFC9C2C60217A00888568 /* PurpleAirDataController.swift in Sources */,
+				850FFCA82C604E8B00888568 /* DataPoint.swift in Sources */,
 				857B18FD2C38CBC600350EC3 /* AllDataChartsViewSmall.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

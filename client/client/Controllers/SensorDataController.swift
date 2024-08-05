@@ -1,32 +1,16 @@
 
 import Foundation
 
-struct SensorDataMetric {
-    var dataPointCollection: SensorDataPointCollection
-    var gradient: GradientManager
-    var latestUpdateTime: Date?
-    var latestMetric: IntermediateGradientPosition?
-    var last60MinMetric: IntermediateGradientPosition?
-
-    mutating func refreshMetrics() {
-        gradient.recomputeGradients(maxValue: dataPointCollection.getMax(), minValue: dataPointCollection.getMin())
-        let latest = dataPointCollection.getLatest()
-        latestMetric = gradient.getIntermediateGradientPositionFromValue(value: latest.observation)
-        latestUpdateTime = latest.date
-        last60MinMetric = gradient.getIntermediateGradientPositionFromValue(value: dataPointCollection.getAvg())
-    }
-}
-
 @MainActor class SensorDataController: ObservableObject {
     static let shared = SensorDataController()
 
     @Published var loading = true
 
-    @Published var aqi = SensorDataMetric(dataPointCollection: SensorDataPointCollection(), gradient: AqiGradientManager())
-    @Published var temp = SensorDataMetric(dataPointCollection: SensorDataPointCollection(), gradient: TempGradientManager())
-    @Published var co2 = SensorDataMetric(dataPointCollection: SensorDataPointCollection(), gradient: Co2GradientManager())
-    @Published var humidity = SensorDataMetric(dataPointCollection: SensorDataPointCollection(), gradient: HumidityGradientManager())
-    @Published var tvoc = SensorDataMetric(dataPointCollection: SensorDataPointCollection(), gradient: TvocGradientManager())
+    @Published var aqi = DataMetric(dataPointCollection: DataPointCollection(), gradient: AqiGradientManager())
+    @Published var temp = DataMetric(dataPointCollection: DataPointCollection(), gradient: TempGradientManager())
+    @Published var co2 = DataMetric(dataPointCollection: DataPointCollection(), gradient: Co2GradientManager())
+    @Published var humidity = DataMetric(dataPointCollection: DataPointCollection(), gradient: HumidityGradientManager())
+    @Published var tvoc = DataMetric(dataPointCollection: DataPointCollection(), gradient: TvocGradientManager())
 
     let sensorName = "airgradient:7aaa5e"
 
@@ -62,11 +46,11 @@ struct SensorDataMetric {
 
         // add the new data points
         for data in sensorData {
-            aqi.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.aqi ?? 0, id: data.id))
-            temp.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: Int(data.tempF ?? 0.0), id: data.id))
-            co2.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.co2 ?? 0, id: data.id))
-            humidity.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.humidity ?? 0, id: data.id))
-            tvoc.dataPointCollection.data.append(SensorDataPoint(date: data.date, observation: data.tvocIndex ?? 0, id: data.id))
+            aqi.dataPointCollection.data.append(DataPoint(date: data.date, observation: data.aqi ?? 0, id: data.id))
+            temp.dataPointCollection.data.append(DataPoint(date: data.date, observation: Int(data.tempF ?? 0.0), id: data.id))
+            co2.dataPointCollection.data.append(DataPoint(date: data.date, observation: data.co2 ?? 0, id: data.id))
+            humidity.dataPointCollection.data.append(DataPoint(date: data.date, observation: data.humidity ?? 0, id: data.id))
+            tvoc.dataPointCollection.data.append(DataPoint(date: data.date, observation: data.tvocIndex ?? 0, id: data.id))
         }
 
         // recalculate the latest vals and gradients
