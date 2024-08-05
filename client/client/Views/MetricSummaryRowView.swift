@@ -11,8 +11,8 @@ struct MetricSummaryRowView: View {
         VStack(alignment: .leading) {
             HStack(content: {
                 Text(metricName).headerStyle()
-                if metricMeasurementType != nil {
-                    Text("(\(metricMeasurementType!))").subHeaderStyle()
+                if let metricMeasurementType = metricMeasurementType {
+                    Text("(\(metricMeasurementType))").subHeaderStyle()
                 }
                 Rectangle()
                     .frame(height: 1)

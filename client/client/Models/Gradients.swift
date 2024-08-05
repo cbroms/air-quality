@@ -17,8 +17,18 @@ struct IntermediateGradientPosition {
 class GradientManager {
     var ranges: [GradientRange] = []
     var rangeMax: Int = 0
-    var linearGradientZeroToMax: LinearGradient?
-    var linearGradientMinToMax: LinearGradient?
+
+    // TODO: Is this the best default?
+    var linearGradientZeroToMax: LinearGradient = .init(
+        gradient: Gradient(colors: [Color.black, Color.black]),
+        startPoint: .top,
+        endPoint: .bottom
+    )
+    var linearGradientMinToMax: LinearGradient = .init(
+        gradient: Gradient(colors: [Color.black, Color.black]),
+        startPoint: .top,
+        endPoint: .bottom
+    )
 
     init(ranges: [GradientRange], rangeMax: Int) {
         self.ranges = ranges
@@ -67,8 +77,8 @@ class GradientManager {
             stop.location >= CGFloat(minP) && stop.location <= CGFloat(maxP)
         }
 
-        func getIntermediateGradientStopFromValue(value: Int) -> Gradient.Stop? {
-            for (index, range) in ranges.enumerated() {
+        func getIntermediateGradientStopFromValue(value: Int) -> Gradient.Stop {
+            for (index, range) in ranges[0..<ranges.count - 1].enumerated() {
                 if range.range.contains(value) {
                     let startColor = ranges[index].color
                     let endColor = ranges[index + 1].color
@@ -85,7 +95,9 @@ class GradientManager {
                     return Gradient.Stop(color: Color(interpolatedColor), location: CGFloat(stopLocation))
                 }
             }
-            return nil
+
+            // TODO: Is this the best default?
+            return Gradient.Stop(color: Color.black, location: 0.0)
         }
 
         // generate the stop for the max and min points
@@ -93,9 +105,9 @@ class GradientManager {
         let endStop = getIntermediateGradientStopFromValue(value: maxValue)
 
         // add the partial stops
-        partialGradientStops.append(endStop!)
+        partialGradientStops.append(endStop)
         if minValue != 0 {
-            partialGradientStops.insert(startStop!, at: 0)
+            partialGradientStops.insert(startStop, at: 0)
         }
 
         // adjust the stop percentages to the new range

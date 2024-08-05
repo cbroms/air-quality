@@ -7,13 +7,15 @@ struct ColorComponents {
 
 extension UIColor {
     func getComponents() -> ColorComponents {
-        if cgColor.numberOfComponents == 2 {
-            let cc = cgColor.components!
-            return ColorComponents(r: cc[0], g: cc[0], b: cc[0], a: cc[1])
-        }
-        else {
-            let cc = cgColor.components!
-            return ColorComponents(r: cc[0], g: cc[1], b: cc[2], a: cc[3])
+        if let cc = cgColor.components {
+            if cgColor.numberOfComponents == 2 {
+                return ColorComponents(r: cc[0], g: cc[0], b: cc[0], a: cc[1])
+            } else {
+                return ColorComponents(r: cc[0], g: cc[1], b: cc[2], a: cc[3])
+            }
+        } else {
+            // TODO: is this the best default?
+            return ColorComponents(r: 0, g: 0, b: 0, a: 0)
         }
     }
 

@@ -3,13 +3,13 @@ import Foundation
 import SwiftUI
 
 struct DataChartView: View {
-    @Binding var dataPointCollection: SensorDataPointCollection
+    @Binding var dataPointCollection: DataPointCollection
     @Binding var loading: Bool
-    @Binding var lineLinearGradient: LinearGradient?
-    @Binding var backgroundLinearGradient: LinearGradient?
+    @Binding var lineLinearGradient: LinearGradient
+    @Binding var backgroundLinearGradient: LinearGradient
 
     var body: some View {
-        if loading || backgroundLinearGradient == nil {
+        if loading {
             ProgressView().progressViewStyle(.circular).frame(height: 62)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
@@ -20,14 +20,14 @@ struct DataChartView: View {
                     y: .value("AQI", $0.observation)
                 )
                 .interpolationMethod(.catmullRom)
-                .foregroundStyle(backgroundLinearGradient!)
+                .foregroundStyle(backgroundLinearGradient)
 
                 LineMark(
                     x: .value("Time", $0.date),
                     y: .value("AQI", $0.observation)
                 ).lineStyle(StrokeStyle(lineWidth: 2.0))
                     .interpolationMethod(.catmullRom)
-                    .foregroundStyle(lineLinearGradient!)
+                    .foregroundStyle(lineLinearGradient)
             }.frame(height: 62)
                 .chartXAxis(.hidden)
                 .chartYAxis {
