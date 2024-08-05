@@ -121,10 +121,6 @@ import Foundation
     func getLast60Mins() async throws {
         loading = true
 
-        let location = CLLocation(latitude: 44.05793290200645, longitude: -121.27677774528141)
-        let maxNumSensors = 1
-        let maxSensorDistance: Double = 50000 // in m
-
         var apiKey = ""
         if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"),
            let config = NSDictionary(contentsOfFile: path) as? [String: AnyObject],
@@ -134,9 +130,24 @@ import Foundation
             print("Purple Air API Key: \(apiKey)")
         }
 
+        // Purple Air appears to rate-limit number of requests so effectively can only make one in a short duration.
+        // Given this, we are disabling the request to find sensors and hardcoding one sensor, and only making
+        // a request to find the history for that history.
+        var sensors: [PurpleAirSensor] = [PurpleAirSensor(index: 2661, latitude: 0.0, longitude: 0.0)]
+        /*
+         do {
+             let location = CLLocation(latitude: 44.05793290200645, longitude: -121.27677774528141)
+             let maxNumSensors = 1
+             let maxSensorDistance: Double = 50000 // in m
+
+             let sensors = try await identifySensors(apiKey: apiKey, location: location, maxNumSensors: maxNumSensors, maxSensorDistance: maxSensorDistance)
+         } catch {
+             throw error
+         }
+         */
+
         var purpleAirData: [PurpleAirData] = []
         do {
-            let sensors = [PurpleAirSensor(index: 2661, latitude: 0.0, longitude: 0.0)] // try await identifySensors(apiKey: apiKey, location: location, maxNumSensors: maxNumSensors, maxSensorDistance: maxSensorDistance)
             purpleAirData = try await fetchData(apiKey: apiKey, sensors: sensors, numSecondsAgo: 3600)
         } catch {
             throw error
